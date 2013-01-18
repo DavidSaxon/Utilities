@@ -1,8 +1,8 @@
 /**********************************************\
 | Exceptions related to file system operations |
 \**********************************************/
-#ifndef _FILEEXCEPTION_H_
-#   define _FILEEXCEPTION_H_
+#ifndef _UTILITIES_EXCEPTIONS_FILEEXCEPTION_H_
+#   define _UTILITIES_EXCEPTIONS_FILEEXCEPTION_H_
 
 #include <iostream>
 #include <sstream>

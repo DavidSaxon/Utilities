@@ -1,8 +1,8 @@
 /**********************************************\
 | Utility functions in relation to file system |
 \**********************************************/
-#ifndef _FILESYSTEMUTILS_H_
-#   define _FILESYSTEMUTILS_H_
+#ifndef _UTILITIES_FILESYSTEMUTILS_H_
+#   define _UTILITIES_FILESYSTEMUTILS_H_
 
 #include <iostream>
 #include <boost/filesystem.hpp>
