@@ -15,6 +15,23 @@ namespace util { namespace ex {
     class FileException : public Exception {
     };
 
+    /*Warns that a file does not exist*/
+    class NoFileExistsException : public FileException {
+    public:
+
+        //CONSTRUCTOR
+        NoFileExistsException(std::string errorMessage) {
+
+            errMsg = errorMessage;
+        }
+
+        //METHODS
+        std::string name() const {
+
+            return "NO SUCH FILE EXCEPTION";
+        }
+    };
+
     /*Exception warning that a direcoty does not exist*/
     class NoDirExistsException : public FileException {
     public:
