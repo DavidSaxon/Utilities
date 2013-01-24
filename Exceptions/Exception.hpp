@@ -20,16 +20,17 @@ public:
     /*Return the error message of the exception*/
     const char* what() const throw() {
 
-        return errMsg.c_str();
+        return info();
+        //return errMsg.c_str();
     }
 
     /*Returns the exception name joint with the error message*/
-    std::string info() const {
+    const char* info() const {
 
         std::stringstream ss;
         ss << name() << ": " << errMsg;
 
-        return ss.str();
+        return ss.str().c_str();
     }
 
     /*Give the exception name i.e. EXCEPTION*/

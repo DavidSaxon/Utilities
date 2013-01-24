@@ -9,12 +9,13 @@
 #include <vector>
 #include <boost/filesystem.hpp>
 
-#include "Exceptions/FileException.hpp"
+#include "exceptions/FileException.hpp"
 
 namespace bfs = boost::filesystem;
 
 namespace util { namespace file {
 
+    //FUNCTIONS
     /*Checks that the given file exists*/
     bool fileExists(const std::string& filename) {
 
@@ -33,7 +34,7 @@ namespace util { namespace file {
 
             std::stringstream ss;
             ss << "\"" << filename << "\" does not exist";
-            throw util::ex::NoFileExistsException(ss.str());
+            throw ex::NoFileExistsException(ss.str());
         }
 
         //open the file
@@ -84,13 +85,13 @@ namespace util { namespace file {
 
                 std::stringstream ss;
                 ss << "directory " << p << " does not exist";
-                throw util::ex::NoDirExistsException(ss.str());
+                throw ex::NoDirExistsException(ss.str());
             }
         }
         catch (const bfs::filesystem_error& fe) {
 
             //rethrow expection as a file exception
-            throw util::ex::BoostFileSystemException(fe.what());
+            throw ex::BoostFileSystemException(fe.what());
         }
     }
 
@@ -127,13 +128,13 @@ namespace util { namespace file {
 
                 std::stringstream ss;
                 ss << "directory " << p << " does not exist";
-                throw util::ex::NoDirExistsException(ss.str());
+                throw ex::NoDirExistsException(ss.str());
             }
         }
         catch (const bfs::filesystem_error& fe) {
 
             //rethrow expection as a file exception
-            throw util::ex::BoostFileSystemException(fe.what());
+            throw ex::BoostFileSystemException(fe.what());
         }
     }
 }}

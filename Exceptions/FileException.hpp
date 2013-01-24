@@ -11,7 +11,7 @@
 
 namespace util { namespace ex {
 
-    /*Base class for all file exceptions, should not be directly used*/
+    /*Abstract base class for all file exceptions*/
     class FileException : public Exception {
     };
 
@@ -24,6 +24,8 @@ namespace util { namespace ex {
 
             errMsg = errorMessage;
         }
+
+    private:
 
         //METHODS
         std::string name() const {
@@ -42,6 +44,8 @@ namespace util { namespace ex {
             errMsg = errorMessage;
         }
 
+    private:
+
         //METHODS
         std::string name() const {
 
@@ -59,6 +63,8 @@ namespace util { namespace ex {
 
             errMsg = errorMessage;
         }
+
+    private:
 
         //METHODS
         std::string name() const {

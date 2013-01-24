@@ -151,37 +151,37 @@ namespace util { namespace math {
     /*Returns true if the given number is a power of 2*/
     bool isPowerOf2(int i) {
 
-        return i > 0 && (i & (i - 1)) == 0;
+        return i > 0 && (i & (i-1)) == 0;
     }
 
     /*Returns true if the given number is a power of 2*/
     bool isPowerOf2(unsigned i) {
 
-        return (i & (i - 1)) == 0;
+        return (i & (i-1)) == 0;
     }
 
     /*Returns true if the given number is a power of 2*/
     bool isPowerOf2(long i) {
 
-        return i > 0 && (i & (i - 1)) == 0;
+        return i > 0 && (i & (i-1)) == 0;
     }
 
     /*Returns true if the given number is a power of 2*/
     bool isPowerOf2(unsigned long i) {
 
-        return (i & (i - 1)) == 0;
+        return (i & (i-1)) == 0;
     }
 
     /*Returns true if the given number is a power of 2*/
     bool isPowerOf2(long long i) {
 
-        return i > 0 && (i & (i - 1)) == 0;
+        return i > 0 && (i & (i-1)) == 0;
     }
 
     /*Returns true if the given number is a power of 2*/
     bool isPowerOf2(unsigned long long i) {
 
-        return (i & (i - 1)) == 0;
+        return (i & (i-1)) == 0;
     }
 
     /*!Calculates and returns the result of n choose r*/
