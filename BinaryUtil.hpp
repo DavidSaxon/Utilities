@@ -21,7 +21,7 @@ namespace util { namespace bin {
     unsigned numSigBits(unsigned n) {
 
         //search from msb of the number till a 1 is found
-        unsigned i = sizeof(n)*SIZEOFBYTE-1;
+        unsigned i = sizeof(n)*val::BITS_IN_BYTE-1;
         for (; i >= 0; --i) {
 
             if ((1 << i) & n) {

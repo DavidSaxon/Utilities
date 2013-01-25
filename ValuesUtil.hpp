@@ -4,6 +4,11 @@
 #ifndef _UTILITIES_VALUESUTILS_
 #   define _UTILITIES_VALUESUTILS_
 
-#define SIZEOFBYTE 8
+namespace util { namespace val {
+
+    const unsigned BITS_IN_BYTE = 8;
+    const unsigned BITS_IN_INT = 32;
+
+}}
 
 #endif

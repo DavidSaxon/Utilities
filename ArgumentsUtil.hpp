@@ -1,6 +1,6 @@
-/******************************************************\
-| Utility functions relating to command line arguments |
-\******************************************************/
+/*****************************************\
+| Utility functions relating to arguments |
+\*****************************************/
 #ifndef _UTILITY_ARGUMENTSUTIL_H_
 #   define _UTILITY_ARGUMENTSUTIL_H_
 
@@ -10,9 +10,12 @@
 
 #include "exceptions/FunctionCallException.hpp"
 #include "exceptions/UserInputException.hpp"
+#include "MathUtil.hpp"
+#include "ValuesUtil.hpp"
 
 //TYPEDEFS
-typedef std::map<std::string , bool*> flagMapType;
+typedef std::map<std::string, bool*> cmdFlagMap;
+typedef std::map<unsigned, bool*> enumFlagMap;
 
 namespace util { namespace arg {
 
@@ -20,13 +23,13 @@ namespace util { namespace arg {
     booleans. If a flag is read it's matching boolean is set to true. Any
     arugments that are not flags are returned as strings in a vector in the
     order they were read. Flags must start with '--'*/
-    std::vector<std::string> parseArguments(int argc, char*argv[],
-        flagMapType& flagMap) {
+    std::vector<std::string> parseCmdLineArguments(int argc, char*argv[],
+        cmdFlagMap& flagMap) {
 
         //check that none of the flags contain "--"
         //also find the length of the longest argument
         unsigned longestArg = 0;
-        flagMapType::const_iterator
+        cmdFlagMap::const_iterator
             it = flagMap.begin(),
             ite = flagMap.end();
         for (; it != ite; ++it) {
@@ -76,7 +79,7 @@ namespace util { namespace arg {
                         checkFlag = checkFlag.substr(0, k+1);
 
                         //now check if the string is in the map
-                        flagMapType::iterator contains =
+                        cmdFlagMap::iterator contains =
                             flagMap.find(checkFlag);
                         if (contains != flagMap.end()) {
 
@@ -111,6 +114,51 @@ namespace util { namespace arg {
         }
 
         return returnVec;
+    }
+
+    /*!Reads enumerators that have been stored in an unsigned int. If a
+    enumerator is found the corresponding boolean in the map is set to true.
+    @i the unsigned integer containing enumerators
+    @flags a mapping from enumerators to pointers to booleans
+    #WARNING: enumerators should only be powers of 2 such as:
+    1 (1), 2 (10), 4 (100), 8 (1000), 16 (10000), etc.
+    There should be no more than 32 flags as this can no longer be mapped to
+    an unsigned integer
+    $IllegalArgumentException if the map contains an enumerator that is
+    not a power of 2
+    $OversizedArgumentException if the map has more than 32 elements*/
+    unsigned readFlags(unsigned i, enumFlagMap& flags) {
+
+        //check the flags are powers of 2
+        enumFlagMap::const_iterator
+            it = flags.begin(),
+            ite = flags.end();
+        for (; it != ite; ++it) {
+
+            //if the enum is not a power of 2 throw an exception
+            if (!math::isPowerOf2(it->first)) {
+
+                throw ex::IllegalArgumentException(
+                    "non power of 2 enumertor found in flag map");
+            }
+        }
+
+        //check that there are no more than 32 flags
+        if (flags.size() > val::BITS_IN_INT) {
+
+            throw ex::OversizedArgumentException(
+                "flag map has too many elements (limit is 32)");
+        }
+
+        //iterate through the flag map and & each element against the int
+        it = flags.begin();
+        for (; it != ite; ++it) {
+
+            if (it->first & i) {
+
+                *it->second = true;
+            }
+        }
     }
 }}
 

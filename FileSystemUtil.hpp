@@ -11,19 +11,27 @@
 
 #include "exceptions/FileException.hpp"
 
-namespace bfs = boost::filesystem;
-
 namespace util { namespace file {
+
+    namespace bfs = boost::filesystem;
 
     //FUNCTIONS
     /*Checks that the given file exists*/
     bool fileExists(const std::string& filename) {
 
-        //try open an input stream using the file, if it fails the file
-        //does not exist
-        std::ifstream fileChecker(filename.c_str());
+        //create a boost path from the file name
+        bfs::path p(filename);
 
-        return fileChecker.good();
+        return bfs::exists(p) && bfs::is_regular_file(p);
+    }
+
+    /*Checks that a given directory exists*/
+    bool dirExists(const std::string& dirName) {
+
+        //create a boost path from the directory name
+        bfs::path p(dirName);
+
+        return bfs::exists(p) && bfs::is_directory(p);
     }
 
     /*Prints the contents of the given file to the given outputstream*/
@@ -54,10 +62,10 @@ namespace util { namespace file {
     }
 
     /*Prints the directories contents to the given output stream*/
-    void printDirectoryContents(const std::string& dir, std::ostream& out) {
+    void printDirectoryContents(const std::string& dirName, std::ostream& out) {
 
         //create a boost path from the directory name
-        bfs::path p(dir);
+        bfs::path p(dirName);
 
         try {
 
@@ -97,11 +105,11 @@ namespace util { namespace file {
 
     /*Places all of the files within the given directory pathnames
     in the given vector as strings*/
-    void getPathsInDir(const std::string& dir,
+    void getPathsInDir(const std::string& dirName,
         std::vector<std::string>& v) {
 
         //create a boost path from the directory name
-        bfs::path p(dir);
+        bfs::path p(dirName);
 
         try {
 
