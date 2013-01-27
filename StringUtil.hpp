@@ -10,6 +10,79 @@
 namespace util { namespace str {
 
     //FUNCTIONS
+    /*!Checks if a string begins with another string
+    @a the string to check if it beings with b
+    @b the string to check if is the beginning of a*/
+    bool beginsWith(const std::string& a, const std::string& b) {
+
+        //check that a is longer than or the same length as b
+        if (a.length() < b.length()) {
+
+            return false;
+        }
+
+        return a.substr(0, b.length()) == b;
+    }
+
+    /*!Checks if a string ends with another string
+    @a the string if it ends with b
+    @b the string to check if it is the end of b*/
+    bool endsWith(const std::string& a, const std::string& b) {
+
+        //check that a is longer than or the same length as b
+        if (a.length() < b.length()) {
+
+            return false;
+        }
+
+        return a.substr(a.length()-b.length(), a.length()) == b;
+    }
+
+    /*!Checks if a string is contained with another string at the given index
+    @index the index in string a to check if string b is contained
+    @a the string to check if it has b at index
+    @b the string to check if it is at index in b*/
+    bool atEquals(unsigned index, const std::string& a, const std::string& b) {
+
+        //check that the index is less than the length of string b
+        if (index >= a.length()) {
+
+            return false;
+        }
+
+        //check that length from the index to the end of string a is the
+        //same length or longer than string b
+        if (a.substr(index, a.length()).length() < b.length()) {
+
+            return false;
+        }
+
+        return a.substr(index, b.length()) == b;
+    }
+
+    /*!Checks if a string contains another string anywhere within it
+    @a the string to check if it has b within
+    @b the string to check if it is within b*/
+    bool contains(const std::string& a, const std::string& b) {
+
+        //check that a is longer than or the same length as b
+        if (a.length() < b.length()) {
+
+            return false;
+        }
+
+        //check each index
+        for (unsigned i = 0; i <= a.length()-b.length(); ++i) {
+
+            if (stringAtEquals(i, a, b)) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /*Returns true if the given string is an integer*/
     bool isInt(const std::string& s) {
 
