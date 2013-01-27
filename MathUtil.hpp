@@ -236,6 +236,4 @@ namespace util { namespace math {
     }
 }}
 
-//TESTING
-
 #endif
