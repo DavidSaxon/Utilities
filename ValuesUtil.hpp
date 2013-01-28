@@ -6,9 +6,8 @@
 
 namespace util { namespace val {
 
-    const unsigned BITS_IN_BYTE = 8;
-    const unsigned BITS_IN_INT = 32;
-
-}}
+const unsigned BITS_IN_BYTE = 8;
+const unsigned BITS_IN_INT = 32;
+}} //util //val
 
 #endif

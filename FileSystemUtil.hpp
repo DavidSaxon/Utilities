@@ -13,138 +13,138 @@
 
 namespace util { namespace file {
 
-    namespace bfs = boost::filesystem;
+namespace bfs = boost::filesystem;
 
-    //FUNCTIONS
-    /*Checks that the given file exists*/
-    bool fileExists(const std::string& filename) {
+//FUNCTIONS
+/*Checks that the given file exists*/
+inline bool fileExists(const std::string& filename) {
 
-        //create a boost path from the file name
-        bfs::path p(filename);
+    //create a boost path from the file name
+    bfs::path p(filename);
 
-        return bfs::exists(p) && bfs::is_regular_file(p);
+    return bfs::exists(p) && bfs::is_regular_file(p);
+}
+
+/*Checks that a given directory exists*/
+inline bool dirExists(const std::string& dirName) {
+
+    //create a boost path from the directory name
+    bfs::path p(dirName);
+
+    return bfs::exists(p) && bfs::is_directory(p);
+}
+
+/*Prints the contents of the given file to the given outputstream*/
+inline void printFile(const std::string& filename, std::ostream& out) {
+
+    //check that the given directory exists
+    if (!fileExists(filename)) {
+
+        std::stringstream ss;
+        ss << "\"" << filename << "\" does not exist";
+        throw ex::NoFileExistsException(ss.str());
     }
 
-    /*Checks that a given directory exists*/
-    bool dirExists(const std::string& dirName) {
+    //open the file
+    std::ifstream file(filename.c_str());
 
-        //create a boost path from the directory name
-        bfs::path p(dirName);
+    while (file.good()) {
 
-        return bfs::exists(p) && bfs::is_directory(p);
+        //create a new line buffer
+        char lineBuffer[1000];
+
+        file.getline(lineBuffer, 1000);
+
+        out << lineBuffer << std::endl;
     }
 
-    /*Prints the contents of the given file to the given outputstream*/
-    void printFile(const std::string& filename, std::ostream& out) {
+    file.close();
+}
 
-        //check that the given directory exists
-        if (!fileExists(filename)) {
+/*Prints the directories contents to the given output stream*/
+inline void printDirectoryContents(const std::string& dirName, std::ostream& out) {
+
+    //create a boost path from the directory name
+    bfs::path p(dirName);
+
+    try {
+
+        //check if the directory actually exists
+        if (bfs::exists(p)) {
+
+            //if it is a regular file then print
+            if (bfs::is_regular_file(p)) {
+                out << "-> " << p << std::endl;
+            }
+            //else if is a directory then iterator over other paths
+            else if (bfs::is_directory(p)) {
+
+                out << "-v " << p << std::endl;
+
+                bfs::directory_iterator ite;
+                for (bfs::directory_iterator it(p); it != ite; ++it) {
+
+                    printDirectoryContents(it->path().string(), out);
+                }
+            }
+        }
+        //the path does not exist throw an exception
+        else {
 
             std::stringstream ss;
-            ss << "\"" << filename << "\" does not exist";
-            throw ex::NoFileExistsException(ss.str());
-        }
-
-        //open the file
-        std::ifstream file(filename.c_str());
-
-        while (file.good()) {
-
-            //create a new line buffer
-            char lineBuffer[1000];
-
-            file.getline(lineBuffer, 1000);
-
-            out << lineBuffer << std::endl;
-        }
-
-        file.close();
-    }
-
-    /*Prints the directories contents to the given output stream*/
-    void printDirectoryContents(const std::string& dirName, std::ostream& out) {
-
-        //create a boost path from the directory name
-        bfs::path p(dirName);
-
-        try {
-
-            //check if the directory actually exists
-            if (bfs::exists(p)) {
-
-                //if it is a regular file then print
-                if (bfs::is_regular_file(p)) {
-                    out << "-> " << p << std::endl;
-                }
-                //else if is a directory then iterator over other paths
-                else if (bfs::is_directory(p)) {
-
-                    out << "-v " << p << std::endl;
-
-                    bfs::directory_iterator ite;
-                    for (bfs::directory_iterator it(p); it != ite; ++it) {
-
-                        printDirectoryContents(it->path().string(), out);
-                    }
-                }
-            }
-            //the path does not exist throw an exception
-            else {
-
-                std::stringstream ss;
-                ss << "directory " << p << " does not exist";
-                throw ex::NoDirExistsException(ss.str());
-            }
-        }
-        catch (const bfs::filesystem_error& fe) {
-
-            //rethrow expection as a file exception
-            throw ex::BoostFileSystemException(fe.what());
+            ss << "directory " << p << " does not exist";
+            throw ex::NoDirExistsException(ss.str());
         }
     }
+    catch (const bfs::filesystem_error& fe) {
 
-    /*Places all of the files within the given directory pathnames
-    in the given vector as strings*/
-    void getPathsInDir(const std::string& dirName,
-        std::vector<std::string>& v) {
+        //rethrow expection as a file exception
+        throw ex::BoostFileSystemException(fe.what());
+    }
+}
 
-        //create a boost path from the directory name
-        bfs::path p(dirName);
+/*Places all of the files within the given directory pathnames
+in the given vector as strings*/
+inline void getPathsInDir(const std::string& dirName,
+    std::vector<std::string>& v) {
 
-        try {
+    //create a boost path from the directory name
+    bfs::path p(dirName);
 
-            //check if the directory actually exists
-            if (bfs::exists(p)) {
+    try {
 
-                //if it s a regular file then add to the vector
-                if (bfs::is_regular_file(p)) {
-                    v.push_back(p.string());
-                }
-                //else if it's a directory, so iterator over the paths within
-                else if (bfs::is_directory(p)) {
+        //check if the directory actually exists
+        if (bfs::exists(p)) {
 
-                    bfs::directory_iterator ite;
-                    for (bfs::directory_iterator it(p); it != ite; ++it) {
-
-                        getPathsInDir(it->path().string(), v);
-                    }
-                }
-                //do nothing if not a directory or a file
+            //if it s a regular file then add to the vector
+            if (bfs::is_regular_file(p)) {
+                v.push_back(p.string());
             }
-            //the path does not exist, throw an exception
-            else {
+            //else if it's a directory, so iterator over the paths within
+            else if (bfs::is_directory(p)) {
 
-                std::stringstream ss;
-                ss << "directory " << p << " does not exist";
-                throw ex::NoDirExistsException(ss.str());
+                bfs::directory_iterator ite;
+                for (bfs::directory_iterator it(p); it != ite; ++it) {
+
+                    getPathsInDir(it->path().string(), v);
+                }
             }
+            //do nothing if not a directory or a file
         }
-        catch (const bfs::filesystem_error& fe) {
+        //the path does not exist, throw an exception
+        else {
 
-            //rethrow expection as a file exception
-            throw ex::BoostFileSystemException(fe.what());
+            std::stringstream ss;
+            ss << "directory " << p << " does not exist";
+            throw ex::NoDirExistsException(ss.str());
         }
     }
-}}
+    catch (const bfs::filesystem_error& fe) {
+
+        //rethrow expection as a file exception
+        throw ex::BoostFileSystemException(fe.what());
+    }
+}
+}} //util //file
 
 #endif

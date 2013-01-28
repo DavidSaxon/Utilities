@@ -11,29 +11,28 @@
 
 namespace util { namespace ex {
 
-    /*Abstract base class for all user input exceptions*/
-    class UserInputException : public Exception {
-    };
+/*Abstract base class for all user input exceptions*/
+class UserInputException : public Exception {
+};
 
-    /*Exception that warns of an invalid program flag given*/
-    class InvalidProgramFlag : public UserInputException {
-    public:
+/*Exception that warns of an invalid program flag given*/
+class InvalidProgramFlag : public UserInputException {
+public:
 
-        //CONSTRUCTOR
-        InvalidProgramFlag(std::string errorMessage) {
+    //CONSTRUCTOR
+    InvalidProgramFlag(std::string errorMessage) {
 
-            errMsg = errorMessage;
-        }
+        errMsg = errorMessage;
+    }
 
-    private:
+private:
 
-        //METHODS
-        std::string name() const {
+    //METHODS
+    std::string name() const {
 
-            return "INVALID PROGRAM FLAG";
-        }
-    };
-
-}}
+        return "INVALID PROGRAM FLAG";
+    }
+};
+}} //util //ex
 
 #endif

@@ -11,69 +11,68 @@
 
 namespace util { namespace ex {
 
-    /*Abstract basee class for all function call exceptions*/
-    class FunctionCallException : public Exception {
-    };
+/*Abstract basee class for all function call exceptions*/
+class FunctionCallException : public Exception {
+};
 
-    /*!Exception that warns of illegal argument provided to a function*/
-    class IllegalArgumentException : public FunctionCallException {
-    public:
+/*!Exception that warns of illegal argument provided to a function*/
+class IllegalArgumentException : public FunctionCallException {
+public:
 
-        //CONSTRUCTOR
-        IllegalArgumentException(std::string errorMessage) {
+    //CONSTRUCTOR
+    IllegalArgumentException(std::string errorMessage) {
 
-            errMsg = errorMessage;
-        }
+        errMsg = errorMessage;
+    }
 
-    private:
+private:
 
-        //METHODS
-        std::string name() const {
+    //METHODS
+    std::string name() const {
 
-            return "ILLEGAL ARGUMENT EXCEPTION";
-        }
-    };
+        return "ILLEGAL ARGUMENT EXCEPTION";
+    }
+};
 
-    /*!Exception that warns of a collection being passed as an argument with too
-    many elements*/
-    class OversizedArgumentException : public FunctionCallException {
-    public:
+/*!Exception that warns of a collection being passed as an argument with too
+many elements*/
+class OversizedArgumentException : public FunctionCallException {
+public:
 
-        //CONSTRUCTOR
-        OversizedArgumentException(std::string errorMessage) {
+    //CONSTRUCTOR
+    OversizedArgumentException(std::string errorMessage) {
 
-            errMsg = errorMessage;
-        }
+        errMsg = errorMessage;
+    }
 
-    private:
+private:
 
-        //METHODS
-        std::string name() const {
+    //METHODS
+    std::string name() const {
 
-            return "OVERSIZED ARGUMENT EXCEPTION";
-        }
-    };
+        return "OVERSIZED ARGUMENT EXCEPTION";
+    }
+};
 
-    /*!Exception that warns of a collection being passed as an argument with too
-    few elements*/
-    class UndersizedArgumentException : public FunctionCallException {
-    public:
+/*!Exception that warns of a collection being passed as an argument with too
+few elements*/
+class UndersizedArgumentException : public FunctionCallException {
+public:
 
-        //CONSTRUCTOR
-        UndersizedArgumentException(std::string errorMessage) {
+    //CONSTRUCTOR
+    UndersizedArgumentException(std::string errorMessage) {
 
-            errMsg = errorMessage;
-        }
+        errMsg = errorMessage;
+    }
 
-    private:
+private:
 
-        //METHODS
-        std::string name() const {
+    //METHODS
+    std::string name() const {
 
-            return "UNDERSIZED ARGUMENT EXCEPTION";
-        }
-    };
-
-}}
+        return "UNDERSIZED ARGUMENT EXCEPTION";
+    }
+};
+}} //util //ex
 
 #endif

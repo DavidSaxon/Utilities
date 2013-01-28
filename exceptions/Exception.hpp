@@ -41,7 +41,6 @@ protected:
     //VARIABLES
     std::string errMsg;
 };
-
-}}
+}} //util //ex
 
 #endif
