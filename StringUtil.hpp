@@ -74,7 +74,7 @@ inline bool contains(const std::string& a, const std::string& b) {
     //check each index
     for (unsigned i = 0; i <= a.length()-b.length(); ++i) {
 
-        if (stringAtEquals(i, a, b)) {
+        if (atEquals(i, a, b)) {
 
             return true;
         }
