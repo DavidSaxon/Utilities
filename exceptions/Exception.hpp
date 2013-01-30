@@ -16,30 +16,50 @@ public:
     //DESTRUCTOR
     virtual ~Exception() throw() {}
 
-    //METHODS
-    /*Return the error message of the exception*/
+    //FUNCTIONS
+    /*Return the error message of the exception and the exception type*/
     const char* what() const throw() {
 
-        return info();
-        //return errMsg.c_str();
+        std::string message = info();
+
+        char* rMessage = new char[message.length()+1];
+        //copy over the message
+        for (unsigned i = 0; i < message.length(); ++i) {
+
+            rMessage[i] = message[i];
+        }
+        //put the terminating character on the end
+        rMessage[message.length()] = '\0';
+
+        return rMessage;
     }
 
-    /*Returns the exception name joint with the error message*/
-    const char* info() const {
+    /*Returns thes the error message of the exception*/
+    std::string getMessage() const {
 
-        std::stringstream ss;
-        ss << name() << ": " << errMsg;
-
-        return ss.str().c_str();
+        return errMsg;
     }
-
-    /*Give the exception name i.e. EXCEPTION*/
-    virtual std::string name() const = 0;
 
 protected:
 
     //VARIABLES
     std::string errMsg;
+
+    //FUNCTIONS
+    /*Give the exception name i.e. EXCEPTION*/
+    virtual std::string name() const = 0;
+
+private:
+
+    //FUNCTIONS
+    /*Returns the exception name joint with the error message*/
+    std::string info() const {
+
+        std::stringstream ss;
+        ss << name() << ": " << errMsg;
+
+        return ss.str();
+    }
 };
 }} //util //ex
 

@@ -20,7 +20,7 @@ class NoFileExistsException : public FileException {
 public:
 
     //CONSTRUCTOR
-    NoFileExistsException(std::string errorMessage) {
+    NoFileExistsException(const std::string& errorMessage) {
 
         errMsg = errorMessage;
     }
@@ -39,7 +39,7 @@ class NoDirExistsException : public FileException {
 public:
 
     //CONSTRUCTOR
-    NoDirExistsException(std::string errorMessage) {
+    NoDirExistsException(const std::string& errorMessage) {
 
         errMsg = errorMessage;
     }
@@ -59,7 +59,7 @@ class BoostFileSystemException : public FileException {
 public:
 
     //CONSTRUCTOR
-    BoostFileSystemException(std::string errorMessage) {
+    BoostFileSystemException(const std::string& errorMessage) {
 
         errMsg = errorMessage;
     }

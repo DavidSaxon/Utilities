@@ -20,7 +20,7 @@ class InvalidProgramFlag : public UserInputException {
 public:
 
     //CONSTRUCTOR
-    InvalidProgramFlag(std::string errorMessage) {
+    InvalidProgramFlag(const std::string& errorMessage) {
 
         errMsg = errorMessage;
     }

@@ -20,7 +20,7 @@ class IllegalArgumentException : public FunctionCallException {
 public:
 
     //CONSTRUCTOR
-    IllegalArgumentException(std::string errorMessage) {
+    IllegalArgumentException(const std::string& errorMessage) {
 
         errMsg = errorMessage;
     }
@@ -40,7 +40,7 @@ class OversizedArgumentException : public FunctionCallException {
 public:
 
     //CONSTRUCTOR
-    OversizedArgumentException(std::string errorMessage) {
+    OversizedArgumentException(const std::string& errorMessage) {
 
         errMsg = errorMessage;
     }
@@ -60,7 +60,7 @@ class UndersizedArgumentException : public FunctionCallException {
 public:
 
     //CONSTRUCTOR
-    UndersizedArgumentException(std::string errorMessage) {
+    UndersizedArgumentException(const std::string& errorMessage) {
 
         errMsg = errorMessage;
     }

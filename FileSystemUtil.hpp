@@ -5,6 +5,7 @@
 #   define _UTILITIES_FILESYSTEMUTILS_H_
 
 #include <iostream>
+#include <stdio.h>
 #include <fstream>
 #include <vector>
 #include <boost/filesystem.hpp>
@@ -34,10 +35,36 @@ inline bool dirExists(const std::string& dirName) {
     return bfs::exists(p) && bfs::is_directory(p);
 }
 
-/*Prints the contents of the given file to the given outputstream*/
+/*removes the given file*/
+inline void deletefile(const std::string& filename) {
+
+    //check that the given file exists
+    if (!fileExists(filename)) {
+
+        std::stringstream ss;
+        ss << "\"" << filename << "\" does not exist";
+        throw ex::NoFileExistsException(ss.str());
+    }
+
+    remove(filename.c_str());
+}
+
+/*removes the given directory*/
+inline void deleteDirectory(const std::string& dirName) {
+
+    if (!dirExists(dirName)) {
+        std::stringstream ss;
+        ss << "directory " << dirName << " does not exist";
+        throw ex::NoDirExistsException(ss.str());
+    }
+
+    bfs::remove_all(dirName);
+}
+
+/*Prints the contents of the given file to the given output stream*/
 inline void printFile(const std::string& filename, std::ostream& out) {
 
-    //check that the given directory exists
+    //check that the given file exists
     if (!fileExists(filename)) {
 
         std::stringstream ss;
@@ -145,6 +172,46 @@ inline void getPathsInDir(const std::string& dirName,
         throw ex::BoostFileSystemException(fe.what());
     }
 }
+
+/*appends e to the end of s with a '.' seperating them*/
+inline std::string appendExtension(const std::string& s, std::string e) {
+
+    //add to string stream
+    std::stringstream ss;
+    ss << s << "." << e;
+    return ss.str();
+}
+
+/*removes an extension from the end of a file name if it has one*/
+inline std::string removeExtension(const std::string& path) {
+
+    //iterate back through the string to find the last .
+    int splitIndex = path.length();
+    while(splitIndex != 0 && path[splitIndex--] != '.');
+
+    return path.substr(0, splitIndex+1);
+}
+
+/*Gets the name of the file from the path name without the preceding pathname*/
+inline std::string extractFilenameFromPath(const std::string& path) {
+
+    //iterate back through the string to find the last /
+    unsigned splitIndex = path.length();
+    while (splitIndex != 0 && path[splitIndex--] != '/');
+
+    return path.substr(splitIndex+2, path.length());
+}
+
+/*Gets the path to the containing folder of the file from the path name*/
+inline std::string extractPathToFromPath(const std::string& path) {
+
+    //iterate back through the string to find the last /
+    unsigned splitIndex = path.length();
+    while (splitIndex != 0 && path[splitIndex--] != '/');
+
+    return path.substr(0, splitIndex+2);
+}
+
 }} //util //file
 
 #endif
