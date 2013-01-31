@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <sys/stat.h>
 #include <fstream>
 #include <vector>
 #include <boost/filesystem.hpp>
@@ -33,6 +34,20 @@ inline bool dirExists(const std::string& dirName) {
     bfs::path p(dirName);
 
     return bfs::exists(p) && bfs::is_directory(p);
+}
+
+/*Create a new directory with the given pathname*/
+inline void createDirectory(const std::string& dirName) {
+
+//if on windows
+#if defined(_WIN32)
+
+    _mkdir(dirName.c_str());
+//else on a unix system
+#else
+
+    mkdir(dirName.c_str(), 0777);
+#endif
 }
 
 /*removes the given file*/

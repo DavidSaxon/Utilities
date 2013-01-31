@@ -5,6 +5,7 @@
 #   define _UTILITIES_MATHUTILS_H_
 
 #include <iostream>
+#include <stdlib.h>
 #include <math.h>
 
 namespace util { namespace math {
@@ -83,6 +84,14 @@ inline bool equals4(double a, double b, double c, double d) {
     return (a == b) && (b == c) && (c == d);
 }
 
+/*Returns true if float a is equal to float b (or very close to equal)*/
+inline bool floatingPointEqual(double a, double b) {
+
+    const double epsilion = 0.000001;
+
+    return abs(a - b) <= epsilion * abs(a);
+}
+
 /*!Rounds decimal places, less than 5 rounds down*/
 inline float halfRoundUp(float a) {
 
@@ -93,7 +102,7 @@ inline float halfRoundUp(float a) {
     //round up
     if (a >= 0.5) {
 
-        return b+1;
+        return b + 1;
     }
 
     //round down
@@ -114,7 +123,7 @@ inline float halfRoundDown(float a) {
     }
 
     //round up
-    return b+1;
+    return b + 1;
 }
 
 /*Rounds to the nearest power of 2*/
@@ -142,7 +151,7 @@ inline unsigned roundPower2Down(float a) {
     //if it was rounded up, round again
     if (power2 > static_cast<unsigned>(a)) {
 
-        return roundPower2Down(a-1.0);
+        return roundPower2Down(a - 1.0);
     }
 
     return power2;
@@ -151,37 +160,37 @@ inline unsigned roundPower2Down(float a) {
 /*Returns true if the given number is a power of 2*/
 inline bool isPowerOf2(int i) {
 
-    return i > 0 && (i & (i-1)) == 0;
+    return i > 0 && (i & (i - 1)) == 0;
 }
 
 /*Returns true if the given number is a power of 2*/
 inline bool isPowerOf2(unsigned i) {
 
-    return (i & (i-1)) == 0;
+    return (i & (i - 1)) == 0;
 }
 
 /*Returns true if the given number is a power of 2*/
 inline bool isPowerOf2(long i) {
 
-    return i > 0 && (i & (i-1)) == 0;
+    return i > 0 && (i & (i - 1)) == 0;
 }
 
 /*Returns true if the given number is a power of 2*/
 inline bool isPowerOf2(unsigned long i) {
 
-    return (i & (i-1)) == 0;
+    return (i & (i - 1)) == 0;
 }
 
 /*Returns true if the given number is a power of 2*/
 inline bool isPowerOf2(long long i) {
 
-    return i > 0 && (i & (i-1)) == 0;
+    return i > 0 && (i & (i - 1)) == 0;
 }
 
 /*Returns true if the given number is a power of 2*/
 inline bool isPowerOf2(unsigned long long i) {
 
-    return (i & (i-1)) == 0;
+    return (i & (i - 1)) == 0;
 }
 
 /*!Calculates and returns the result of n choose r*/
@@ -197,7 +206,7 @@ inline unsigned choose(unsigned n, unsigned r) {
         return 1;
     }
 
-    return static_cast<unsigned>((n*(n-1))/r);
+    return static_cast<unsigned>((n * (n - 1)) / r);
 }
 
 /*Returns a decimal morton code from the two given unsigned integers
