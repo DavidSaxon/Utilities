@@ -11,89 +11,8 @@
 namespace util { namespace math {
 
 //FUNCTIONS
-/*Returns true if the 3 shorts are equal*/
-inline bool equals3(short a, short b, short c) {
-
-    return (a == b) && (b == c);
-}
-
-/*Returns true if the 3 unsigned shorts are equal*/
-inline bool equals3(unsigned short a, unsigned short b, unsigned short c) {
-
-    return (a == b) && (b == c);
-}
-
-/*Returns true if the 3 integers are equal*/
-inline bool equals3(int a, int b, int c) {
-
-    return (a == b) && (b == c);
-}
-
-/*Returns true if the 3 unsinged integers are equal*/
-inline bool equals3(unsigned a, unsigned b, unsigned c) {
-
-    return (a == b) && (b == c);
-}
-
-/*Returns true if the 3 floating point numbers are equal*/
-inline bool equals3(float a, float b, float c) {
-
-    return (a == b) && (b == c);
-}
-
-/*Returns true if the 3 doubles are equal*/
-inline bool equals3(double a, double b, double c) {
-
-    return (a == b) && (b == c);
-}
-
-/*Returns true if the 4 shorts are equal*/
-inline bool equals4(short a, short b, short c, short d) {
-
-    return (a == b) && (b == c) && (c == d);
-}
-
-/*Returns true if the 4 unsigned shorts are equal*/
-inline bool equals4(unsigned short a, unsigned short b,
-    unsigned short c, unsigned short d) {
-
-    return (a == b) && (b == c) && (c == d);
-}
-
-/*Returns true if the 4 integers are equal*/
-inline bool equals4(int a, int b, int c, int d) {
-
-    return (a == b) && (b == c) && (c == d);
-}
-
-/*Returns true if the 4 unsigned integers are equal*/
-inline bool equals4(unsigned a, unsigned b, unsigned c, unsigned d) {
-
-    return (a == b) && (b == c) && (c == d);
-}
-
-/*Returns true if the 4 floating point numbers are equal*/
-inline bool equals4(float a, float b, float c, float d) {
-
-    return (a == b) && (b == c) && (c == d);
-}
-
-/*Returns true if the 4 doubles are equal*/
-inline bool equals4(double a, double b, double c, double d) {
-
-    return (a == b) && (b == c) && (c == d);
-}
-
-/*Returns true if float a is equal to float b (or very close to equal)*/
-inline bool floatingPointEqual(double a, double b) {
-
-    const double epsilion = 0.000001;
-
-    return abs(a - b) <= epsilion * abs(a);
-}
-
 /*!Rounds decimal places, less than 5 rounds down*/
-inline float halfRoundUp(float a) {
+inline float halfRoundUp(double a) {
 
     //get just the decimal point
     unsigned b = static_cast<unsigned>(a);
@@ -110,7 +29,7 @@ inline float halfRoundUp(float a) {
 }
 
 /*!Rounds decimal places, less than 6 rounds down*/
-inline float halfRoundDown(float a) {
+inline double halfRoundDown(double a) {
 
     //get just the decimal point
     unsigned b = static_cast<unsigned>(a);
@@ -126,8 +45,34 @@ inline float halfRoundDown(float a) {
     return b + 1;
 }
 
+/*Caps the given value at the threshold
+#WARNING: type must implement the > operator*/
+template <Typename T>
+inline T cap(T val, T threshold) {
+
+    if (val > threshold) {
+
+        return threshold;
+    }
+
+    return val;
+}
+
+/*Limits the given number at the threshold, opposite to cap
+#WARNING: type must implement the < operator*/
+template <Typename T>
+inline T boost(T val, T threshold) {
+
+    if (val < threshold) {
+
+        return threshold;
+    }
+
+    return val;
+}
+
 /*Rounds to the nearest power of 2*/
-inline unsigned roundPower2(float a) {
+inline unsigned roundPower2(double a) {
 
     unsigned power2 = static_cast<unsigned>(a);
 
@@ -144,7 +89,7 @@ inline unsigned roundPower2(float a) {
 }
 
 /*Always rounds down to the nearest power of 2*/
-inline unsigned roundPower2Down(float a) {
+inline unsigned roundPower2Down(double a) {
 
     unsigned power2 = roundPower2(a);
 
@@ -157,40 +102,12 @@ inline unsigned roundPower2Down(float a) {
     return power2;
 }
 
-/*Returns true if the given number is a power of 2*/
-inline bool isPowerOf2(int i) {
+/*Returns true if the given number is a power2
+#WARNING: should only be used for P.O.D. number types*/
+template <typename T>
+inline bool isPowerOf2(T a) {
 
-    return i > 0 && (i & (i - 1)) == 0;
-}
-
-/*Returns true if the given number is a power of 2*/
-inline bool isPowerOf2(unsigned i) {
-
-    return (i & (i - 1)) == 0;
-}
-
-/*Returns true if the given number is a power of 2*/
-inline bool isPowerOf2(long i) {
-
-    return i > 0 && (i & (i - 1)) == 0;
-}
-
-/*Returns true if the given number is a power of 2*/
-inline bool isPowerOf2(unsigned long i) {
-
-    return (i & (i - 1)) == 0;
-}
-
-/*Returns true if the given number is a power of 2*/
-inline bool isPowerOf2(long long i) {
-
-    return i > 0 && (i & (i - 1)) == 0;
-}
-
-/*Returns true if the given number is a power of 2*/
-inline bool isPowerOf2(unsigned long long i) {
-
-    return (i & (i - 1)) == 0;
+    return a > 0 && (a & (a - 1)) == 0;
 }
 
 /*!Calculates and returns the result of n choose r*/
