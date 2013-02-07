@@ -47,7 +47,7 @@ inline double halfRoundDown(double a) {
 
 /*Caps the given value at the threshold
 #WARNING: type must implement the > operator*/
-template <Typename T>
+template <typename T>
 inline T cap(T val, T threshold) {
 
     if (val > threshold) {
@@ -60,7 +60,7 @@ inline T cap(T val, T threshold) {
 
 /*Limits the given number at the threshold, opposite to cap
 #WARNING: type must implement the < operator*/
-template <Typename T>
+template <typename T>
 inline T boost(T val, T threshold) {
 
     if (val < threshold) {
