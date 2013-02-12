@@ -295,6 +295,38 @@ inline std::string replaceAt(const std::string& s, unsigned i, char a) {
     return sc;
 }
 
+/*Copies the given string into the given char vector*/
+inline void copyToVector(const std::string& s, std::vector<char>& c) {
+
+    //iterate over the string and copy it into the vector
+    for (unsigned i = 0; i< s.length(); ++i) {
+
+        c.push_back(s.at(i));
+    }
+}
+
+/*Checks if the given index in a vector of chars is the tag*/
+inline bool vectorAtEquals(unsigned index, const std::vector<char>& v,
+    const std::string& tag) {
+
+    //check that the tag is shorter than the rest of the vector
+    if (tag.length() >= v.size()-index) {
+
+        return false;
+    }
+
+    //iterate over the vector and check
+    for (unsigned i = 0; i < tag.length(); ++i) {
+
+        if (tag[i] != v[i+index]) {
+
+            return false;
+        }
+    }
+
+    return true;
+}
+
 }} //util //str
 
 #endif
