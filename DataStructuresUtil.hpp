@@ -1,5 +1,7 @@
 /*********************************\
 | A set of useful data structures |
+|                                 |
+| @author David Saxon             |
 \*********************************/
 #ifndef _UTIL_DATASTRUCTURES_H_
 #   define _UTIL_DATASTRUCTURES_H_

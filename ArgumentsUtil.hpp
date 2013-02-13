@@ -1,5 +1,7 @@
 /*****************************************\
 | Utility functions relating to arguments |
+|                                         |
+| @author David Saxon                     |
 \*****************************************/
 #ifndef _UTILITY_ARGUMENTSUTIL_H_
 #   define _UTILITY_ARGUMENTSUTIL_H_

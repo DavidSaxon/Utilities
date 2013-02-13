@@ -1,5 +1,7 @@
 /**********************************************\
 | Exceptions related to file system operations |
+|                                              |
+| @author David Saxon                          |
 \**********************************************/
 #ifndef _UTILITIES_EXCEPTIONS_FILEEXCEPTION_H_
 #   define _UTILITIES_EXCEPTIONS_FILEEXCEPTION_H_

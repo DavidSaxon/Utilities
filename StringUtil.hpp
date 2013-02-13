@@ -1,5 +1,7 @@
 /*******************************************\
 | Utility functions for string manipulation |
+|                                           |
+| @author David Saxon                       |
 \*******************************************/
 #ifndef _UTILITIES_STRINGUTILS_H_
 #   define _UTILITIES_STRINGUTILS_H_

@@ -1,6 +1,8 @@
-/***************\
-| Useful marcos |
-\***************/
+/*********************\
+| Useful marcos       |
+|                     |
+| @author David Saxon |
+\*********************/
 #ifndef _UTILITIES_MACROUTIL_H_
 #   define _UTILITIES_MACROUTIL_H_
 

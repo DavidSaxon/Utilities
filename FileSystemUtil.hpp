@@ -1,5 +1,7 @@
 /**********************************************\
 | Utility functions in relation to file system |
+|                                              |
+| @author David Saxon                          |
 \**********************************************/
 #ifndef _UTILITIES_FILESYSTEMUTILS_H_
 #   define _UTILITIES_FILESYSTEMUTILS_H_

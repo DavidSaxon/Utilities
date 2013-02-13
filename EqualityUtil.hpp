@@ -1,5 +1,7 @@
 /*******************************************\
 | Functions relating to equality operations |
+|                                           |
+| @author David Saxon                       |
 \*******************************************/
 #ifndef _UTILITIES_EQUALITYUTIL_H_
 #   define _UTILITIES_EQUALITYUTIL_H_

@@ -1,5 +1,7 @@
 /***************************************\
 | Exceptions relating to function calls |
+|                                       |
+| @author David Saxon                   |
 \***************************************/
 #ifndef _UTILITIES_EXCEPTIONS_FUNCTIONCALLEXCEPTION_H_
 #   define _UTILITIES_EXCEPTIONS_FUNCTIONCALLEXCEPTION_H_

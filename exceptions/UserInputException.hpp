@@ -1,5 +1,7 @@
 /**********************************\
 | Exceptions related to user input |
+|                                  |
+| @author David Saxon              |
 \**********************************/
 #ifndef _UTILITIES_EXCEPTIONS_USERINPUTEXCEPTION_H_
 #   define _UTILITIES_EXCEPTIONS_USERINPUTEXCEPTION_H_

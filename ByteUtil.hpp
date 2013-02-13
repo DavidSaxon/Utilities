@@ -1,5 +1,7 @@
 /*************************************\
 | Utility functions relating to bytes |
+|                                     |
+| @author David Saxon                 |
 \*************************************/
 #ifndef _UTILITIES_BYTEUTIL_H_
     #define _UTILITIES_BYTEUTIL_H_

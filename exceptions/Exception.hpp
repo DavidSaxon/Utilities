@@ -1,5 +1,7 @@
 /*******************************************************\
 | Exception Abstract Base class, extends std::exception |
+|                                                       |
+| @author David Saxon                                   |
 \*******************************************************/
 #ifndef _UTILITIES_EXCEPTIONS_EXCEPTION_H_
 #   define _UTILITIES_EXCEPTIONS_EXCEPTION_H_

@@ -1,5 +1,7 @@
 /**********************************************\
 | Utility functions relating to binary numbers |
+|                                              |
+| @author David Saxon                          |
 \**********************************************/
 #ifndef _UTILITIES_BINARYUTIL_H_
 #   define _UTILITIES_BINARYUTIL_H_

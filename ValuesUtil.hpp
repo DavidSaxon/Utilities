@@ -1,5 +1,7 @@
 /******************************************\
 | Utiltiy defining common values and sizes |
+|                                          |
+| @author David Saxon                      |
 \******************************************/
 #ifndef _UTILITIES_VALUESUTILS_
 #   define _UTILITIES_VALUESUTILS_

@@ -1,5 +1,7 @@
 /*******************************\
 | Maths based utility functions |
+|                               |
+| @author David Saxon           |
 \*******************************/
 #ifndef _UTILITIES_MATHUTILS_H_
 #   define _UTILITIES_MATHUTILS_H_

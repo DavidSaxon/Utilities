@@ -1,5 +1,7 @@
 /*********************************************\
 | Utilities functions relating to RGB colours |
+|                                             |
+| @author David Saxon                         |
 \*********************************************/
 #ifndef _UTILITIES_RGBUTIL_H_
 #   define _UTILITIES_RGBUTIL_H_
