@@ -155,6 +155,24 @@ inline bool isUInt(const std::string& s) {
     return true;
 }
 
+/*Trims the white space from the beginning and the end of the string*/
+inline std::string trim(const std::string& s) {
+
+    std::string trimed;
+
+    //find where the beginning white space ends
+    unsigned index = 0;
+    for(; (s[index] == ' ' || s[index] == '\n' || s[index] == '\r') &&
+        index < s.length(); ++index);
+
+    //trim the front of the string
+    trimed = s.substr(index, s.length());
+
+    //TODO: trim end
+
+    return trimed;
+}
+
 /*Generates a random hex string
 WARNING: random number generator should be seeded before calling this*/
 inline std::string generateHexString() {

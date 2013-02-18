@@ -1,6 +1,8 @@
 /**********************************************\
 | Utility functions in relation to file system |
 |                                              |
+| @requires boost/filesystem                   |
+|                                              |
 | @author David Saxon                          |
 \**********************************************/
 #ifndef _UTILITIES_FILESYSTEMUTILS_H_
