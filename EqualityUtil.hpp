@@ -3,13 +3,14 @@
 |                                           |
 | @author David Saxon                       |
 \*******************************************/
-#ifndef _UTILITIES_EQUALITYUTIL_H_
-#   define _UTILITIES_EQUALITYUTIL_H_
+#ifndef UTILITIES_EQUALITYUTIL_H_
+#   define UTILITIES_EQUALITYUTIL_H_
 
 #include <iostream>
 
 namespace util { namespace eql {
 
+//FUNCTIONS
 /*Tests if the 3 given arguments are equal*/
 template<typename T>
 inline bool equals3(T a, T b, T c) {

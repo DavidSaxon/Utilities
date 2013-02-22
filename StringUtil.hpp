@@ -3,8 +3,8 @@
 |                                           |
 | @author David Saxon                       |
 \*******************************************/
-#ifndef _UTILITIES_STRINGUTILS_H_
-#   define _UTILITIES_STRINGUTILS_H_
+#ifndef UTILITIES_STRINGUTILS_H_
+#   define UTILITIES_STRINGUTILS_H_
 
 #include <iostream>
 #include <sstream>

@@ -29,7 +29,7 @@ public:
 
 private:
 
-    //METHODS
+    //PRIVATE MEMBER FUNCTIONS
     std::string name() const {
 
         return "INVALID PROGRAM FLAG";

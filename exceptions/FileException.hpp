@@ -3,8 +3,8 @@
 |                                              |
 | @author David Saxon                          |
 \**********************************************/
-#ifndef _UTILITIES_EXCEPTIONS_FILEEXCEPTION_H_
-#   define _UTILITIES_EXCEPTIONS_FILEEXCEPTION_H_
+#ifndef UTILITIES_EXCEPTIONS_FILEEXCEPTION_H_
+#   define UTILITIES_EXCEPTIONS_FILEEXCEPTION_H_
 
 #include <iostream>
 #include <sstream>
@@ -29,7 +29,7 @@ public:
 
 private:
 
-    //METHODS
+    //PRIVATE MEMBER FUNCTIONS
     std::string name() const {
 
         return "NO SUCH FILE EXCEPTION";
@@ -48,7 +48,7 @@ public:
 
 private:
 
-    //METHODS
+    //PRIVATE MEMBER FUNCTIONS
     std::string name() const {
 
         return "NO SUCH DIRECTORY EXCEPTION";
@@ -68,7 +68,7 @@ public:
 
 private:
 
-    //METHODS
+    //PRIVATE MEMBER FUNCTIONS
     std::string name() const {
 
         return "BOOST FILE SYSTEM EXCEPTION";

@@ -5,15 +5,15 @@
 |                                              |
 | @author David Saxon                          |
 \**********************************************/
-#ifndef _UTILITIES_FILESYSTEMUTILS_H_
-#   define _UTILITIES_FILESYSTEMUTILS_H_
+#ifndef UTILITIES_FILESYSTEMUTILS_H_
+#   define UTILITIES_FILESYSTEMUTILS_H_
 
+#include <boost/filesystem.hpp>
+#include <fstream>
 #include <iostream>
 #include <stdio.h>
 #include <sys/stat.h>
-#include <fstream>
 #include <vector>
-#include <boost/filesystem.hpp>
 
 #include "exceptions/FileException.hpp"
 

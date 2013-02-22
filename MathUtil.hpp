@@ -3,8 +3,8 @@
 |                               |
 | @author David Saxon           |
 \*******************************/
-#ifndef _UTILITIES_MATHUTILS_H_
-#   define _UTILITIES_MATHUTILS_H_
+#ifndef UTILITIES_MATHUTILS_H_
+#   define UTILITIES_MATHUTILS_H_
 
 #include <iostream>
 #include <stdlib.h>

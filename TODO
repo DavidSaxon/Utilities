@@ -1,0 +1,26 @@
+-remove starting _ from include guards
+
+-change comment formatting
+
+-fix command line argument parser to read flags that only use one '-'
+
+-contains functions for stl containers (use in arugment utils)
+
+-for each loop
+
+-argument out of bounds exception
+
+-object exceptions {
+
+    -illegal operation exception
+
+    -un-init exception
+
+    -closed exception
+}
+
+remove and rename file/directory
+
+more vector string utils
+
+VECTORS! (2d, 3d)

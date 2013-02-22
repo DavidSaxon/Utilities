@@ -3,12 +3,12 @@
 |                                         |
 | @author David Saxon                     |
 \*****************************************/
-#ifndef _UTILITY_ARGUMENTSUTIL_H_
-#   define _UTILITY_ARGUMENTSUTIL_H_
+#ifndef UTILITY_ARGUMENTSUTIL_H_
+#   define UTILITY_ARGUMENTSUTIL_H_
 
 #include <iostream>
-#include <vector>
 #include <map>
+#include <vector>
 
 #include "exceptions/FunctionCallException.hpp"
 #include "exceptions/UserInputException.hpp"
@@ -21,6 +21,7 @@ typedef std::map<unsigned, bool*> enumFlagMap;
 
 namespace util { namespace arg {
 
+//FUNCTIONS
 /*!Reads the command line arguments, a map is given that map flags to
 booleans. If a flag is read it's matching boolean is set to true. Any
 arugments that are not flags are returned as strings in a vector in the

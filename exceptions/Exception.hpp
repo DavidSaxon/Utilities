@@ -3,12 +3,12 @@
 |                                                       |
 | @author David Saxon                                   |
 \*******************************************************/
-#ifndef _UTILITIES_EXCEPTIONS_EXCEPTION_H_
-#   define _UTILITIES_EXCEPTIONS_EXCEPTION_H_
+#ifndef UTILITIES_EXCEPTIONS_EXCEPTION_H_
+#   define UTILITIES_EXCEPTIONS_EXCEPTION_H_
 
+#include <exception>
 #include <iostream>
 #include <sstream>
-#include <exception>
 
 namespace util { namespace ex {
 
@@ -18,7 +18,7 @@ public:
     //DESTRUCTOR
     virtual ~Exception() throw() {}
 
-    //FUNCTIONS
+    //PUBLIC MEMBER FUNCTIONS
     /*Return the error message of the exception and the exception type*/
     const char* what() const throw() {
 
@@ -47,13 +47,13 @@ protected:
     //VARIABLES
     std::string errMsg;
 
-    //FUNCTIONS
+    //PROTECTED MEMBER FUNCTIONS
     /*Give the exception name i.e. EXCEPTION*/
     virtual std::string name() const = 0;
 
 private:
 
-    //FUNCTIONS
+    //PRIVATE MEMBER FUNCTIONS
     /*Returns the exception name joint with the error message*/
     std::string info() const {
 

@@ -3,8 +3,8 @@
 |                                       |
 | @author David Saxon                   |
 \***************************************/
-#ifndef _UTILITIES_EXCEPTIONS_FUNCTIONCALLEXCEPTION_H_
-#   define _UTILITIES_EXCEPTIONS_FUNCTIONCALLEXCEPTION_H_
+#ifndef UTILITIES_EXCEPTIONS_FUNCTIONCALLEXCEPTION_H_
+#   define UTILITIES_EXCEPTIONS_FUNCTIONCALLEXCEPTION_H_
 
 #include <iostream>
 #include <sstream>
@@ -29,7 +29,7 @@ public:
 
 private:
 
-    //METHODS
+    //PRIVATE MEMBER FUNCTIONS
     std::string name() const {
 
         return "ILLEGAL ARGUMENT EXCEPTION";
@@ -49,7 +49,7 @@ public:
 
 private:
 
-    //METHODS
+    //PRIVATE MEMBER FUNCTIONS
     std::string name() const {
 
         return "OVERSIZED ARGUMENT EXCEPTION";
@@ -69,7 +69,7 @@ public:
 
 private:
 
-    //METHODS
+    //PRIVATE MEMBER FUNCTIONS
     std::string name() const {
 
         return "UNDERSIZED ARGUMENT EXCEPTION";

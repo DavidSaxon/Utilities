@@ -3,8 +3,8 @@
 |                                             |
 | @author David Saxon                         |
 \*********************************************/
-#ifndef _UTILITIES_RGBUTIL_H_
-#   define _UTILITIES_RGBUTIL_H_
+#ifndef UTILITIES_RGBUTIL_H_
+#   define UTILITIES_RGBUTIL_H_
 
 namespace util { namespace rgb {
 

@@ -10,6 +10,7 @@
 
 namespace util { namespace ds {
 
+//STRUCTURES
 /*~Contains 2 elements of possibly different types,
 values cannot be changed*/
 template <typename T, typename U>

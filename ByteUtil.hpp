@@ -3,8 +3,8 @@
 |                                     |
 | @author David Saxon                 |
 \*************************************/
-#ifndef _UTILITIES_BYTEUTIL_H_
-    #define _UTILITIES_BYTEUTIL_H_
+#ifndef UTILITIES_BYTEUTIL_H_
+    #define UTILITIES_BYTEUTIL_H_
 
 #include <stdlib.h>
 
@@ -13,6 +13,7 @@ namespace util { namespace byte {
 //TYPEDEFS
 typedef unsigned char byte;
 
+//FUNCTIONS
 /*Converts an integer into its bytes which are stored in the given array
 #WARNING: byte is assumed to have sizeof(i) elements#*/
 inline void intToBytes(int i, byte* b) {
