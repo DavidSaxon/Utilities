@@ -211,6 +211,26 @@ inline std::string removeExtension(const std::string& path) {
     return path.substr(0, splitIndex+1);
 }
 
+/*Gets the extension from the end of the file name if it is has one*/
+inline std::string getExtension(const std::string& path) {
+
+        //iterate back through the string to find the last .
+    int splitIndex = path.length();
+    while(splitIndex != 0 && path[splitIndex--] != '.');
+
+    return path.substr(splitIndex, path.length());
+}
+
+/*Checks if the extension of the file is the same as the given extension*/
+inline bool extensionEquals(const std::string& path,
+    const std::string& ext) {
+
+    //get the extension from the path
+    std::string pExt = getExtension(path);
+
+    return pExt == ext;
+}
+
 /*Gets the name of the file from the path name without the preceding pathname*/
 inline std::string extractFilenameFromPath(const std::string& path) {
 
