@@ -164,6 +164,7 @@ inline void getPathsInDir(const std::string& dirName,
 
             //if it s a regular file then add to the vector
             if (bfs::is_regular_file(p)) {
+
                 v.push_back(p.string());
             }
             //else if it's a directory, so iterator over the paths within
@@ -214,11 +215,17 @@ inline std::string removeExtension(const std::string& path) {
 /*Gets the extension from the end of the file name if it is has one*/
 inline std::string getExtension(const std::string& path) {
 
-        //iterate back through the string to find the last .
+    //iterate back through the string to find the last .
     int splitIndex = path.length();
     while(splitIndex != 0 && path[splitIndex--] != '.');
 
-    return path.substr(splitIndex, path.length());
+    //there is no extension
+    if (splitIndex == 0) {
+
+        return "";
+    }
+
+    return path.substr(splitIndex + 2, path.length());
 }
 
 /*Checks if the extension of the file is the same as the given extension*/
