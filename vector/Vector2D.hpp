@@ -124,6 +124,38 @@ public:
 	^INL*/
 	void clear();
 
+	/*^INL
+	@v the value to add to the x value*/
+	void addX(float v);
+
+	/*^INL
+	@v the value to add to the y value*/
+	void addY(float v);
+
+	/*^INL
+	@v the value to subtract to the x value*/
+	void subX(float v);
+
+	/*^INL
+	@v the value to subtract to the y value*/
+	void subY(float v);
+
+	/*^INL
+	@v the value to multiply the x value by*/
+	void mulX(float v);
+
+	/*^INL
+	@v the value to multiply the y value by*/
+	void mulY(float v);
+
+	/*^INL
+	@v the value to divide the x value by*/
+	void divX(float v);
+
+	/*^INL
+	@v the value to divide the y value by*/
+	void divY(float v);
+
 	/*!^INL
 	@return the x value of the vector*/
 	float getX() const;
@@ -236,6 +268,47 @@ inline void Vector2D::clear() {
 
 	x = 0;
 	y = 0;
+}
+
+
+inline void Vector2D::addX(float v) {
+
+	x += v;
+}
+
+inline void Vector2D::addY(float v) {
+
+	y += v;
+}
+
+inline void Vector2D::subX(float v) {
+
+	x -= v;
+}
+
+inline void Vector2D::subY(float v) {
+
+	y -= v;
+}
+
+inline void Vector2D::mulX(float v) {
+
+	x *= v;
+}
+
+inline void Vector2D::mulY(float v) {
+
+	y *= v;
+}
+
+inline void Vector2D::divX(float v) {
+
+	x /= v;
+}
+
+inline void Vector2D::divY(float v) {
+
+	y /= v;
 }
 
 inline float Vector2D::getX() const {

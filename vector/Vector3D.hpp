@@ -128,6 +128,54 @@ public:
 	^INL*/
 	void clear();
 
+	/*^INL
+	@v the value to add to the x value*/
+	void addX(float v);
+
+	/*^INL
+	@v the value to add to the y value*/
+	void addY(float v);
+
+	/*^INL
+	@v the value to add to the z value*/
+	void addZ(float v);
+
+	/*^INL
+	@v the value to subtract to the x value*/
+	void subX(float v);
+
+	/*^INL
+	@v the value to subtract to the y value*/
+	void subY(float v);
+
+	/*^INL
+	@v the value to subtract to the z value*/
+	void subZ(float v);
+
+	/*^INL
+	@v the value to multiply the x value by*/
+	void mulX(float v);
+
+	/*^INL
+	@v the value to multiply the y value by*/
+	void mulY(float v);
+
+	/*^INL
+	@v the value to multiply the z value by*/
+	void mulZ(float v);
+
+	/*^INL
+	@v the value to divide the x value by*/
+	void divX(float v);
+
+	/*^INL
+	@v the value to divide the y value by*/
+	void divY(float v);
+
+	/*^INL
+	@v the value to divide the z value by*/
+	void divZ(float v);
+
 	/*!^INL
 	@return the x value of the vector*/
 	float getX() const;
@@ -256,6 +304,66 @@ inline void Vector3D::clear() {
 	x = 0;
 	y = 0;
 	z = 0;
+}
+
+inline void Vector3D::addX(float v) {
+
+	x += v;
+}
+
+inline void Vector3D::addY(float v) {
+
+	y += v;
+}
+
+inline void Vector3D::addZ(float v) {
+
+	z += v;
+}
+
+inline void Vector3D::subX(float v) {
+
+	x -= v;
+}
+
+inline void Vector3D::subY(float v) {
+
+	y -= v;
+}
+
+inline void Vector3D::subZ(float v) {
+
+	z -= v;
+}
+
+inline void Vector3D::mulX(float v) {
+
+	x *= v;
+}
+
+inline void Vector3D::mulY(float v) {
+
+	y *= v;
+}
+
+inline void Vector3D::mulZ(float v) {
+
+	z *= v;
+}
+
+inline void Vector3D::divX(float v) {
+
+	x /= v;
+}
+
+inline void Vector3D::divY(float v) {
+
+	y /= v;
+}
+
+inline void Vector3D::divZ(float v) {
+
+	z /= v;
 }
 
 inline float Vector3D::getX() const {
