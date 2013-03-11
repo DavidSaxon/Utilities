@@ -437,21 +437,6 @@ inline float Vector4D::getZ() const {
 	return z;
 }
 
-inline float Vector4D::getX() const {
-
-	return x;
-}
-
-inline float Vector4D::getY() const {
-
-	return y;
-}
-
-inline float Vector4D::getZ() const {
-
-	return z;
-}
-
 inline float Vector4D::getF() const {
 
 	return f;
