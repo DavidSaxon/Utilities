@@ -10,6 +10,12 @@
 #include <iostream>
 #include <sstream>
 
+#include "Vector2D.hpp"
+#include "Vector3D.hpp"
+
+class Vector2D;
+class Vector3D;
+
 namespace util { namespace vec {
 
 class Vector4D {
@@ -55,6 +61,28 @@ public:
 		y(other.y),
 		z(other.z),
 		f(other.f) {
+	}
+
+	/*!Creates a 4d vector from the given 2d vector
+	^INL
+	@other the 2d vector to copy from
+	#WARNING: the z and f values will be set to 0.0*/
+	Vector4D(const Vector2D& other) :
+		x(other.getX()),
+		y(other.getY()),
+		z(0.0),
+		f(0.0) {
+	}
+
+	/*!Creates a 4d vector from the given 3d vector
+	^INL
+	@other the 3d vector to copy from
+	#WARNING: the f value will be set to 0.0*/
+	Vector4D(const Vector3D& other) :
+		x(other.getX()),
+		y(other.getY()),
+		z(other.getZ()),
+		f(0.0) {
 	}
 
 	//DESTRUCTOR
