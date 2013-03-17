@@ -329,6 +329,7 @@ const util::vec::Vector3D& Vector3D::crossProduct(
 	//the cross product values
 	float cx = 0.0;
 	float cy = 0.0;
+	float cz = 0.0;
 
 	cx = (y * other.z) - (z * other.y);
 	cy = (x * other.z) - (z * other.x);
