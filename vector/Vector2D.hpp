@@ -276,7 +276,7 @@ inline void Vector2D::clear() {
 	y = 0;
 }
 
-float Vector2D::dotProduct(const util::vec::Vector2D& other) {
+inline float Vector2D::dotProduct(const util::vec::Vector2D& other) {
 
 	return (x * other.x) + (y * other.y);
 }

@@ -318,12 +318,12 @@ inline void Vector3D::clear() {
 	z = 0;
 }
 
-float Vector3D::dotProduct(const util::vec::Vector3D& other) {
+inline float Vector3D::dotProduct(const util::vec::Vector3D& other) {
 
 	return (x * other.x) + (y * other.y) + (z * other.z);
 }
 
-const util::vec::Vector3D& Vector3D::crossProduct(
+inline const util::vec::Vector3D& Vector3D::crossProduct(
 	const util::vec::Vector3D& other) {
 
 	//the cross product values
