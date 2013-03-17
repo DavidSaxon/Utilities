@@ -124,6 +124,12 @@ public:
 	^INL*/
 	void clear();
 
+	/*!Compute the dot product between this vector and the other vector
+	^INL
+	@other the other vector
+	@return the dot product*/
+	float dotProduct(const util::vec::Vector2D& other);
+
 	/*^INL
 	@v the value to add to the x value*/
 	void addX(float v);
@@ -270,6 +276,10 @@ inline void Vector2D::clear() {
 	y = 0;
 }
 
+float Vector2D::dotProduct(const util::vec::Vector2D& other) {
+
+	return (x * other.x) + (y * other.y);
+}
 
 inline void Vector2D::addX(float v) {
 

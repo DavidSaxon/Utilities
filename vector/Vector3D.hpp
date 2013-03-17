@@ -128,6 +128,18 @@ public:
 	^INL*/
 	void clear();
 
+	/*!Compute the dot product between this vector and the other vector
+	^INL
+	@other the other vector
+	@return the dot product*/
+	float dotProduct(const util::vec::Vector3D& other);
+
+	/*!Compute the cross product between this vector and the other vector
+	^INL
+	@other the other vector 
+	@return the vector that is the result of the cross product*/
+	const util::vec::Vector3D& crossProduct(const util::vec::Vector3D& other);
+
 	/*^INL
 	@v the value to add to the x value*/
 	void addX(float v);
@@ -304,6 +316,23 @@ inline void Vector3D::clear() {
 	x = 0;
 	y = 0;
 	z = 0;
+}
+
+float Vector3D::dotProduct(const util::vec::Vector3D& other) {
+
+	return (x * other.x) + (y * other.y) + (z * other.z);
+}
+
+const util::vec::Vector3D& Vector3D::crossProduct(
+	const util::vec::Vector3D& other) {
+
+	//the cross product values
+	float cx = 0.0;
+	float cy = 0.0;
+
+	cx = (y * other.z) - (z * other.y);
+	cy = (x * other.z) - (z * other.x);
+	cz = (x * other.y) - (y * other.x);
 }
 
 inline void Vector3D::addX(float v) {
