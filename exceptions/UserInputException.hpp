@@ -13,11 +13,11 @@
 
 namespace util { namespace ex {
 
-/*Abstract base class for all user input exceptions*/
+/*~Abstract base class for all user input exceptions*/
 class UserInputException : public Exception {
 };
 
-/*Exception that warns of an invalid program flag given*/
+/*~Exception that warns of an invalid program flag given*/
 class InvalidProgramFlag : public UserInputException {
 public:
 
@@ -32,9 +32,68 @@ private:
     //PRIVATE MEMBER FUNCTIONS
     std::string name() const {
 
-        return "INVALID PROGRAM FLAG";
+        return "INVALID PROGRAM FLAG EXCEPTION";
     }
 };
+
+/*~Exception that warns that too few command line arguments were given*/
+class TooFewArgumentsException : public Exception {
+public:
+
+    //CONSTRUCTOR
+    TooFewArgumentsException(const std::string& errorMessage) {
+
+        errMsg = errorMessage;
+    }
+
+private:
+
+    //PRIVATE MEMBER FUNCTIONS
+    std::string name() const {
+
+        return "TOO FEW ARGUMENTS EXCEPTION";
+    }
+
+};
+
+/*~Exception that warns that too many command line arguments were given*/
+class TooManyArgumentsException : public Exception {
+public:
+
+    //CONSTRUCTOR
+    TooManyArgumentsException(const std::string& errorMessage) {
+
+        errMsg = errorMessage;
+    }
+
+private:
+
+    //PRIVATE MEMBER FUNCTIONS
+    std::string name() const {
+
+        return "TOO MANY ARGUMENTS EXCEPTION";
+    }
+};
+
+/*~Exception that warns of a bad command line argument*/
+class BadArgumentException : public Exception {
+public:
+
+    //CONSTRUCTOR
+    BadArgumentException(const std::string& errorMessage) {
+
+        errMsg = errorMessage;
+    }
+
+private:
+
+    //PRIVATE MEMBER FUNCTIONS
+    std::string name() const {
+
+        return "BAD ARGUMENT EXCEPTION";
+    }
+};
+
 }} //util //ex
 
 #endif
