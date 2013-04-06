@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <stdlib.h>
 
 #include "DataStructuresUtil.hpp"
 
@@ -101,7 +102,7 @@ inline bool contains(const std::string& a, const std::string& b) {
 /*Finds a the index of the start of string b in string a
 returns -1 if the string is not contained within a
 NOTE: if the b exits in a in multiple places the index of the first
-occurence of b will be returned*/
+occurrence of b will be returned*/
 inline int find(const std::string& a, const std::string& b) {
 
     //check that a is longer than or the same length as b
@@ -124,7 +125,7 @@ inline int find(const std::string& a, const std::string& b) {
 inline bool isInt(const std::string& s) {
 
     //iterate over the string that each char is a digit
-    //execpt for the first char which may be a '-'
+    //except for the first char which may be a '-'
     for (unsigned i = 0; i < s.length(); ++i) {
 
         if (i == 0 && s.at(i) != '-' && !isdigit(s.at(i))) {
@@ -186,7 +187,7 @@ inline std::string generateHexString() {
     return ss.str();
 }
 
-/*Spilts a string at the given sub string and includes the substring into
+/*Splits a string at the given sub string and includes the substring into
 the first string
 NOTE: if the string is no contained in a then a tuple is returned
 with a and an empty string*/
@@ -208,7 +209,7 @@ inline ConstStringTuple splitAtStringInc(const std::string& a,
         a.substr(splitIndex, a.length()));
 }
 
-/*Spilts a string at the given sub string and includes the substring into
+/*Splits a string at the given sub string and includes the substring into
 the second string
 NOTE: if the string is no contained in a then a tuple is returned
 with a and an empty string*/
@@ -228,15 +229,36 @@ inline ConstStringTuple splitAtStringExc(const std::string& a,
         a.substr(splitIndex, a.length()));
 }
 
-/*Replaces all occurences of character a in string s with character b
+/*!Splits a string at the given sub string and discards the substring
+NOTE: if the string is not contained then a tuple is returned with an and
+an empty string*/
+inline ConstStringTuple splitAtStringDis(const std::string& a,
+    const std::string& b) {
+
+    //find the index of the string
+    int splitIndex1 = find(a, b);
+
+        //check that b is within a
+    if (splitIndex1 == -1) {
+
+        return ConstStringTuple(a, "");
+    }
+
+    unsigned splitIndex2 = splitIndex1 + b.length();
+
+    return ConstStringTuple(a.substr(0, splitIndex1),
+        a.substr(splitIndex2, a.length()));
+}
+
+/*Replaces all occurrences of character a in string s with character b
 NOTE: returns the string with no changes if it does not contain any
-occurences of a*/
+occurrences of a*/
 inline std::string replaceAll(const std::string& s, char a, char b) {
 
     //make a copy of the string
     std::string sc(s);
 
-    //iterate through the string and find all occurences of a
+    //iterate through the string and find all occurrences of a
     for (unsigned i = 0; i < s.length(); ++i) {
 
         //replace the character
@@ -249,15 +271,15 @@ inline std::string replaceAll(const std::string& s, char a, char b) {
     return sc;
 }
 
-/*Replaces the first occurence of character a in string s with character b
+/*Replaces the first occurrence of character a in string s with character b
 NOTE: returns the string with no changes if it does not contain any
-occurences of a*/
+occurrences of a*/
 inline std::string replaceFirst(const std::string& s, char a, char b) {
 
     //make a copy of the string
     std::string sc(s);
 
-    //iterate through the string and find all occurences of a
+    //iterate through the string and find all occurrences of a
     for (unsigned i = 0; i < s.length(); ++i) {
 
         //replace the character
@@ -272,15 +294,15 @@ inline std::string replaceFirst(const std::string& s, char a, char b) {
     return sc;
 }
 
-/*Replaces the last occurence of character a in string s with character b
+/*Replaces the last occurrence of character a in string s with character b
 NOTE: returns the string with no changes if it does not contain any
-occurences of a*/
+occurrences of a*/
 inline std::string replaceLast(const std::string& s, char a, char b) {
 
     //make a copy of the string
     std::string sc(s);
 
-    //iterate through the string and find all occurences of a
+    //iterate through the string and find all occurrences of a
     for (unsigned i = s.length()-1; i >= 0; --i) {
 
         //replace the character
