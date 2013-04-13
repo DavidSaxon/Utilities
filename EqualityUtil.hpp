@@ -6,6 +6,7 @@
 #ifndef UTILITIES_EQUALITYUTIL_H_
 #   define UTILITIES_EQUALITYUTIL_H_
 
+#include <cmath>
 #include <iostream>
 #include <stdlib.h>
 
@@ -59,17 +60,17 @@ inline bool equals4(double a, double b, double c, double d) {
 /*Returns true if float a is equal to float b (or very close to equal)*/
 inline bool floatingPointEqual(float a, float b) {
 
-    const float epsilion = 0.000001;
+    const float epsilion = 0.001;
 
-    return abs(a - b) <= epsilion * abs(a);
+    return fabs(a - b) <= epsilion;
 }
 
 /*Returns true if double a is equal to double b (or very close to equal)*/
 inline bool floatingPointEqual(double a, double b) {
 
-    const double epsilion = 0.000001;
+    const double epsilion = 0.001;
 
-    return abs(a - b) <= epsilion * abs(a);
+    return fabs(a - b) <= epsilion;
 }
 
 /*Tests if the given value is greater than the max,
