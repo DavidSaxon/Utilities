@@ -119,6 +119,8 @@ inline int find(const std::string& a, const std::string& b) {
             return i;
         }
     }
+
+    return -1;
 }
 
 /*Returns true if the given string is an integer*/
@@ -238,7 +240,7 @@ inline ConstStringTuple splitAtStringDis(const std::string& a,
     //find the index of the string
     int splitIndex1 = find(a, b);
 
-        //check that b is within a
+    //check that b is within a
     if (splitIndex1 == -1) {
 
         return ConstStringTuple(a, "");
