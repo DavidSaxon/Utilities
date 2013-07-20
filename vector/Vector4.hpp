@@ -8,6 +8,7 @@
 #   define UTILTIES_VECTOR_VECTOR4_H_
 
 #include <iostream>
+#include <cmath>
 #include <sstream>
 
 namespace util { namespace vec {
@@ -124,6 +125,9 @@ public:
 
     /*!@return the vector inversed*/
     Vector4* getInverse() const;
+
+    /*!normalises the vector*/
+    void normalise();
 
     /*!@return the magnitude of the vector*/
     float magnitude() const;
@@ -339,6 +343,18 @@ inline void Vector4::inverse() {
 inline Vector4* Vector4::getInverse() const {
 
     return new Vector4(-x, -y, -z, -w);
+}
+
+inline void Vector4::normalise() {
+
+    //get the magnitude
+    float mag = magnitude();
+
+    //normalise the components
+    x /= mag;
+    y /= mag;
+    z /= mag;
+    w /= mag;
 }
 
 inline float Vector4::magnitude() const {

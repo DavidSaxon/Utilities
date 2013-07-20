@@ -8,6 +8,7 @@
 #   define UTILTIES_VECTOR_VECTOR2_H_
 
 #include <iostream>
+#include <cmath>
 #include <sstream>
 
 namespace util { namespace vec {
@@ -117,6 +118,9 @@ public:
 
     /*!@return the vector inversed*/
     Vector2* getInverse() const;
+
+    /*!normalises the vector*/
+    void normalise();
 
     /*!@return the magnitude of the vector*/
     float magnitude() const;
@@ -284,6 +288,16 @@ inline void Vector2::inverse() {
 inline Vector2* Vector2::getInverse() const {
 
     return new Vector2(-x, -y);
+}
+
+inline void Vector2::normalise() {
+
+    //get the magnitude
+    float mag = magnitude();
+
+    //normalise the components
+    x /= mag;
+    y /= mag;
 }
 
 inline float Vector2::magnitude() const {
