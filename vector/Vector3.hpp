@@ -62,34 +62,34 @@ public:
     /*!Checks if this vector and the other vector are equal
     @other the other vector to compare with
     @return whether the vectors are equal*/
-    bool operator==(const Vector3& other);
+    bool operator==(const Vector3& other) const;
 
     /*!Checks if this vector and the other vector are not equal
     @other the other vector to compare with
     @return whether the vectors are not equal*/
-    bool operator!=(const Vector3& other);
+    bool operator!=(const Vector3& other) const;
 
     /*!Creates a new vector from the addition of this and the other vector
     @other the other vector to add with
     @return the result of the addition*/
-    Vector3* operator+(const Vector3& other);
+    Vector3* operator+(const Vector3& other) const;
 
     /*!Creates a new vector from the subtraction of this and the other vector
     @other the other vector to subtract with
     @return the result of the subtraction*/
-    Vector3* operator-(const Vector3& other);
+    Vector3* operator-(const Vector3& other) const;
 
     /*!Creates a new vector from the multiplication of this and the other vector
     #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
     @other the other vector to multiply with
     @return the result of the multiplication*/
-    Vector3* operator*(const Vector3& other);
+    Vector3* operator*(const Vector3& other) const;
 
     /*!Creates a new vector from the division of this and the other vector
     #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
     @other the other vector to divide with
     @return the result of the division*/
-    Vector3* operator/(const Vector3& other);
+    Vector3* operator/(const Vector3& other) const;
 
     /*!Adds the value of the other vector to this vector
     @other the other vector to add to this*/
@@ -110,18 +110,35 @@ public:
     void operator/=(const Vector3& other);
 
     //PUBLIC MEMBER FUNCTIONS
+    /*!@return the 3D zero vector*/
+    static Vector3 zero();
+
     /*!Resets the vector to the zero vector*/
     void clear();
+
+    /*!Inverses the vector*/
+    void inverse();
+
+    /*!@return the vector inversed*/
+    Vector3* getInverse() const;
+
+    /*!@return the magnitude of the vector*/
+    float magnitude() const;
 
     /*!Computes the dot product of this vector and the other vector
     @other the other vector
     @return the dot product*/
-    float dotProduct(const util::vec::Vector3& other);
+    float dotProduct(const util::vec::Vector3& other) const;
 
     /*!Computes the cross product of this vector and the other vector
     @other the other vector
     @return the vector that is the result of the cross product*/
-    util::vec::Vector3* crossProduct(const util::vec::Vector3& other);
+    util::vec::Vector3* crossProduct(const util::vec::Vector3& other) const;
+
+    /*!Calculates the distance between this vector and the other vector
+    @other the vector
+    @return the distance*/
+    float distance(const util::vec::Vector3& other) const;
 
     /*!@v the value to add to the x value of this vector*/
     void addX(float v);
@@ -158,6 +175,9 @@ public:
 
     /*!@v the value to divide the z value of this vector by*/
     void divZ(float v);
+
+    /*!@return the vector as an array*/
+    float* toArray() const;
 
     /*!@return the x value*/
     float getX() const;
@@ -214,32 +234,32 @@ inline Vector3& Vector3::operator=(const Vector3& other) {
     z = other.z;
 }
 
-inline bool Vector3::operator==(const Vector3& other) {
+inline bool Vector3::operator==(const Vector3& other) const {
 
     return x == other.x && y == other.y && z == other.z;
 }
 
-inline bool Vector3::operator !=(const Vector3& other) {
+inline bool Vector3::operator !=(const Vector3& other) const {
 
     return !((*this) == other);
 }
 
-inline Vector3* Vector3::operator+(const Vector3& other) {
+inline Vector3* Vector3::operator+(const Vector3& other) const {
 
     return new Vector3(x + other.x, y + other.y, z + other.z);
 }
 
-inline Vector3* Vector3::operator-(const Vector3& other) {
+inline Vector3* Vector3::operator-(const Vector3& other) const {
 
     return new Vector3(x - other.x, y - other.y, z - other.z);
 }
 
-inline Vector3* Vector3::operator*(const Vector3& other) {
+inline Vector3* Vector3::operator*(const Vector3& other) const {
 
     return new Vector3(x * other.x, y * other.y, z * other.z);
 }
 
-inline Vector3* Vector3::operator/(const Vector3& other) {
+inline Vector3* Vector3::operator/(const Vector3& other) const {
 
     return new Vector3(x / other.x, y / other.y, z / other.z);
 }
@@ -273,6 +293,11 @@ inline void Vector3::operator/=(const Vector3& other) {
 }
 
 //PUBLIC MEMBER FUNCTIONS
+inline Vector3 Vector3::zero() {
+
+    return Vector3();
+}
+
 inline void Vector3::clear() {
 
     x = 0;
@@ -280,13 +305,30 @@ inline void Vector3::clear() {
     z = 0;
 }
 
-inline float Vector3::dotProduct(const util::vec::Vector3& other) {
+inline void Vector3::inverse() {
+
+    x = -x;
+    y = -y;
+    z = -z;
+}
+
+inline Vector3* Vector3::getInverse() const {
+
+    return new Vector3(-x, -y, -z);
+}
+
+inline float Vector3::magnitude() const {
+
+    return distance(Vector3::zero());
+}
+
+inline float Vector3::dotProduct(const util::vec::Vector3& other) const {
 
     return (x * other.x) + (y * other.y) + (z * other.z);
 }
 
 inline util::vec::Vector3* Vector3::crossProduct(
-    const util::vec::Vector3& other) {
+    const util::vec::Vector3& other) const {
 
     //the cross product values
     float cx = 0.0f;
@@ -298,6 +340,12 @@ inline util::vec::Vector3* Vector3::crossProduct(
     cz = (x * other.y) - (y * other.x);
 
     return new Vector3(cx, cy, cz);
+}
+
+inline float Vector3::distance(const util::vec::Vector3& other) const {
+
+    return sqrt(pow(x - other.x, 2.0f) + pow(y - other.y, 2.0f) +
+        pow(z - other.z, 2.0f));
 }
 
 inline void Vector3::addX(float v) {
@@ -358,6 +406,16 @@ inline void Vector3::divY(float v) {
 inline void Vector3::divZ(float v) {
 
     z /= v;
+}
+
+inline float* Vector3::toArray() const {
+
+    float* array = new float[3];
+    array[0] = x;
+    array[1] = y;
+    array[2] = z;
+
+    return array;
 }
 
 inline float Vector3::getX() const {

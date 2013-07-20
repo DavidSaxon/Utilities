@@ -65,34 +65,34 @@ public:
     /*!Checks if this vector and the other vector are equal
     @other the other vector to compare with
     @return whether the vectors are equal*/
-    bool operator==(const Vector4& other);
+    bool operator==(const Vector4& other) const;
 
     /*!Checks if this vector and the other vector are not equal
     @other the other vector to compare with
     @return whether the vectors are not equal*/
-    bool operator!=(const Vector4& other);
+    bool operator!=(const Vector4& other) const;
 
     /*!Creates a new vector from the addition of this and the other vector
     @other the other vector to add with
     @return the result of the addition*/
-    Vector4* operator+(const Vector4& other);
+    Vector4* operator+(const Vector4& other) const;
 
     /*!Creates a new vector from the subtraction of this and the other vector
     @other the other vector to subtract with
     @return the result of the subtraction*/
-    Vector4* operator-(const Vector4& other);
+    Vector4* operator-(const Vector4& other) const;
 
     /*!Creates a new vector from the multiplication of this and the other vector
     #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
     @other the other vector to multiply with
     @return the result of the multiplication*/
-    Vector4* operator*(const Vector4& other);
+    Vector4* operator*(const Vector4& other) const;
 
     /*!Creates a new vector from the division of this and the other vector
     #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
     @other the other vector to divide with
     @return the result of the division*/
-    Vector4* operator/(const Vector4& other);
+    Vector4* operator/(const Vector4& other) const;
 
     /*!Adds the value of the other vector to this vector
     @other the other vector to add to this*/
@@ -113,13 +113,30 @@ public:
     void operator/=(const Vector4& other);
 
     //PUBLIC MEMBER FUNCTIONS
+    /*!@return the 4D zero vector*/
+    static Vector4 zero();
+
     /*!Resets the vector to the zero vector*/
     void clear();
+
+    /*!Inverses the vector*/
+    void inverse();
+
+    /*!@return the vector inversed*/
+    Vector4* getInverse() const;
+
+    /*!@return the magnitude of the vector*/
+    float magnitude() const;
 
     /*!Computes the dot product of this vector and the other vector
     @other the other vector
     @return the dot product*/
-    float dotProduct(const util::vec::Vector4& other);
+    float dotProduct(const util::vec::Vector4& other) const;
+
+    /*!Calculates the distance between this vector and the other vector
+    @other the vector
+    @return the distance*/
+    float distance(const util::vec::Vector4& other) const;
 
     /*!@v the value to add to the x value of this vector*/
     void addX(float v);
@@ -168,6 +185,9 @@ public:
 
     /*!@v the value to divide the w value of this vector by*/
     void divW(float v);
+
+    /*!@return the vector as an array*/
+    float* toArray() const;
 
     /*!@return the x value*/
     float getX() const;
@@ -232,32 +252,32 @@ inline Vector4& Vector4::operator=(const Vector4& other) {
     z = other.z;
 }
 
-inline bool Vector4::operator==(const Vector4& other) {
+inline bool Vector4::operator==(const Vector4& other) const {
 
     return x == other.x && y == other.y && z == other.z && w == other.w;
 }
 
-inline bool Vector4::operator !=(const Vector4& other) {
+inline bool Vector4::operator !=(const Vector4& other) const {
 
     return !((*this) == other);
 }
 
-inline Vector4* Vector4::operator+(const Vector4& other) {
+inline Vector4* Vector4::operator+(const Vector4& other) const {
 
     return new Vector4(x + other.x, y + other.y, z + other.z, w + other.w);
 }
 
-inline Vector4* Vector4::operator-(const Vector4& other) {
+inline Vector4* Vector4::operator-(const Vector4& other) const {
 
     return new Vector4(x - other.x, y - other.y, z - other.z, w - other.w);
 }
 
-inline Vector4* Vector4::operator*(const Vector4& other) {
+inline Vector4* Vector4::operator*(const Vector4& other) const {
 
     return new Vector4(x * other.x, y * other.y, z * other.z, w * other.w);
 }
 
-inline Vector4* Vector4::operator/(const Vector4& other) {
+inline Vector4* Vector4::operator/(const Vector4& other) const {
 
     return new Vector4(x / other.x, y / other.y, z / other.z, w / other.w);
 }
@@ -295,6 +315,11 @@ inline void Vector4::operator/=(const Vector4& other) {
 }
 
 //PUBLIC MEMBER FUNCTIONS
+inline Vector4 Vector4::zero() {
+
+    return Vector4();
+}
+
 inline void Vector4::clear() {
 
     x = 0;
@@ -303,9 +328,33 @@ inline void Vector4::clear() {
     w = 0;
 }
 
-inline float Vector4::dotProduct(const util::vec::Vector4& other) {
+inline void Vector4::inverse() {
+
+    x = -x;
+    y = -y;
+    z = -z;
+    w = -w;
+}
+
+inline Vector4* Vector4::getInverse() const {
+
+    return new Vector4(-x, -y, -z, -w);
+}
+
+inline float Vector4::magnitude() const {
+
+    return distance(Vector4::zero());
+}
+
+inline float Vector4::dotProduct(const util::vec::Vector4& other)  const {
 
     return (x * other.x) + (y * other.y) + (z * other.z) + (w * other.w);
+}
+
+inline float Vector4::distance(const util::vec::Vector4& other) const {
+
+    return sqrt(pow(x - other.x, 2.0f) + pow(y - other.y, 2.0f) +
+        pow(z - other.z, 2.0f) + pow(w - other.w, 2.0f));
 }
 
 inline void Vector4::addX(float v) {
@@ -386,6 +435,17 @@ inline void Vector4::divZ(float v) {
 inline void Vector4::divW(float v) {
 
     w /= v;
+}
+
+inline float* Vector4::toArray() const {
+
+    float* array = new float[4];
+    array[0] = x;
+    array[1] = y;
+    array[2] = z;
+    array[3] = w;
+
+    return array;
 }
 
 inline float Vector4::getX() const {
