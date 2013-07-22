@@ -47,10 +47,10 @@ inline double halfRoundDown(double a) {
     return b + 1;
 }
 
-/*Caps the given value at the threshold
+/*Ensures the given values is below the threshold
 #WARNING: type must implement the > operator*/
 template <typename T>
-inline T cap(T val, T threshold) {
+inline T belowThreshold(T val, T threshold) {
 
     if (val > threshold) {
 
@@ -60,10 +60,10 @@ inline T cap(T val, T threshold) {
     return val;
 }
 
-/*Limits the given number at the threshold, opposite to cap
+/*Ensures the given value is above the threshold
 #WARNING: type must implement the < operator*/
 template <typename T>
-inline T boost(T val, T threshold) {
+inline T aboveThreshold(T val, T threshold) {
 
     if (val < threshold) {
 
@@ -72,6 +72,18 @@ inline T boost(T val, T threshold) {
 
     return val;
 }
+
+/*!Clamps the given number between the lower and upper threshold
+#WARNING: type must implement the < and > operators*/
+template <typename T>
+inline T clamp(T val, T lowerThreshold, T upperThreshold) {
+
+    val = aboveThreshold<T>(val, lowerThreshold);
+    val = belowThreshold<T>(val, upperThreshold);
+
+    return val;
+}
+
 
 /*Rounds to the nearest power of 2*/
 inline unsigned roundPower2(double a) {
