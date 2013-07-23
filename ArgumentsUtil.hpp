@@ -119,7 +119,7 @@ inline std::vector<std::string> parseCmdLineArguments(int argc, char*argv[],
     return returnVec;
 }
 
-/*!Reads enumerators that have been stored in an unsigned int. If a
+/*!Reads enumerators that have been stored in an unsigned int. If an
 enumerator is found the corresponding boolean in the map is set to true.
 @i the unsigned integer containing enumerators
 @flags a mapping from enumerators to pointers to booleans

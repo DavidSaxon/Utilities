@@ -211,6 +211,8 @@ inline Vector2& Vector2::operator=(const Vector2& other) {
 
     x = other.x;
     y = other.y;
+
+    return *this;
 }
 
 inline bool Vector2::operator==(const Vector2& other) const {

@@ -254,6 +254,8 @@ inline Vector4& Vector4::operator=(const Vector4& other) {
     x = other.x;
     y = other.y;
     z = other.z;
+
+    return *this;
 }
 
 inline bool Vector4::operator==(const Vector4& other) const {
