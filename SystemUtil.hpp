@@ -4,6 +4,9 @@
 | @author David Saxon |
 \*********************/
 
+#ifndef UTILITIES_SYSTEMUTIL_H_
+#	define UTILITIES_SYSTEMUTIL_H_
+
 namespace util { namespace sys {
 
 //FUNCTIONS
@@ -26,3 +29,5 @@ inline unsigned getNumProc() {
 }
 
 } } //util //sys
+
+#endif
