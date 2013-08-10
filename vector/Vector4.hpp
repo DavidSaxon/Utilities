@@ -254,6 +254,7 @@ inline Vector4& Vector4::operator=(const Vector4& other) {
     x = other.x;
     y = other.y;
     z = other.z;
+    w = other.w;
 
     return *this;
 }
@@ -518,7 +519,7 @@ inline std::string Vector4::toString() const {
 
     //create the string of the vector
     std::stringstream ss;
-    ss << "[" << x << ", " << y << ", " << z << "," << w << "]";
+    ss << "[" << x << ", " << y << ", " << z << ", " << w << "]";
 
     return ss.str();
 }
