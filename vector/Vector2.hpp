@@ -135,7 +135,7 @@ public:
     @return the distance*/
     float distance(const util::vec::Vector2& other) const;
 
-    /*!Calculates the distance between this vector and the other vector
+    /*!Calculates the angle between this vector and the other vector
     @other the other vector
     @return the angle between*/
     float angleBetween(const util::vec::Vector2& other) const;

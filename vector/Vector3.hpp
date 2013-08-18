@@ -144,6 +144,11 @@ public:
     @return the distance*/
     float distance(const util::vec::Vector3& other) const;
 
+    /*Calculates the angle between this vector and the other vector
+    @other the other vector
+    @return the angle between the two vectors*/
+    float angleBetween(const util::vec::Vector3& other) const;
+
     /*!@v the value to add to the x value of this vector*/
     void addX(float v);
 
@@ -363,6 +368,12 @@ inline float Vector3::distance(const util::vec::Vector3& other) const {
 
     return sqrt(pow(x - other.x, 2.0f) + pow(y - other.y, 2.0f) +
         pow(z - other.z, 2.0f));
+}
+
+inline float Vector3::angleBetween(const util::vec::Vector3& other) const {
+
+    //get the dot product
+    float dot = dotProduct(other);
 }
 
 inline void Vector3::addX(float v) {
