@@ -75,10 +75,20 @@ public:
     @return the result of the addition*/
     Vector3* operator+(const Vector3& other) const;
 
+    /*!Creates a new vector from the addition of this and the scalar
+    @scalar the scale to add with
+    @return the result of the addition*/
+    Vector3* operator+(float scalar) const;
+
     /*!Creates a new vector from the subtraction of this and the other vector
     @other the other vector to subtract with
     @return the result of the subtraction*/
     Vector3* operator-(const Vector3& other) const;
+
+    /*!Creates a new vector from the subtraction of this and the scalar
+    @scalar the scale to add with
+    @return the result of the subtraction*/
+    Vector3* operator-(float scalar) const;
 
     /*!Creates a new vector from the multiplication of this and the other vector
     #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
@@ -86,29 +96,55 @@ public:
     @return the result of the multiplication*/
     Vector3* operator*(const Vector3& other) const;
 
+    /*!Creates a new vector from the multiplication of this and the scalar
+    @scalar the scale to add with
+    @return the result of the multiplication*/
+    Vector3* operator*(float scalar) const;
+
     /*!Creates a new vector from the division of this and the other vector
     #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
     @other the other vector to divide with
     @return the result of the division*/
     Vector3* operator/(const Vector3& other) const;
 
+    /*!Creates a new vector from the division of this and the scalar
+    @scalar the scale to add with
+    @return the result of the division*/
+    Vector3* operator/(float scalar) const;
+
     /*!Adds the value of the other vector to this vector
     @other the other vector to add to this*/
     void operator+=(const Vector3& other);
 
+    /*!Adds the value of the scalar to this vector
+    @scalar the scalar to add*/
+    void operator+=(float scalar);
+
     /*!Subtracts the value of the other vector from this vector
     @other the other vector to subtract from this*/
     void operator-=(const Vector3& other);
+
+    /*!Subtracts the value of the scalar to this vector
+    @scalar the scalar to add*/
+    void operator-=(float scalar);
 
     /*!Multiplies this vector by the other vector
     #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
     @other the other vector to multiply by*/
     void operator*=(const Vector3& other);
 
+    /*!Multiplies the value of the scalar to this vector
+    @scalar the scalar to add*/
+    void operator*=(float scalar);
+
     /*!Divides this vector by the other vector
     #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
     @other the other vector to divide by*/
     void operator/=(const Vector3& other);
+
+    /*!Divides the value of the scalar to this vector
+    @scalar the scalar to add*/
+    void operator/=(float scalar);
 
     //PUBLIC MEMBER FUNCTIONS
     /*!@return the 3D zero vector*/
@@ -260,9 +296,19 @@ inline Vector3* Vector3::operator+(const Vector3& other) const {
     return new Vector3(x + other.x, y + other.y, z + other.z);
 }
 
+inline Vector3* Vector3::operator+(float scalar) const {
+
+    return new Vector3(x + scalar, y + scalar, z + scalar);
+}
+
 inline Vector3* Vector3::operator-(const Vector3& other) const {
 
     return new Vector3(x - other.x, y - other.y, z - other.z);
+}
+
+inline Vector3* Vector3::operator-(float scalar) const {
+
+    return new Vector3(x - scalar, y - scalar, z - scalar);
 }
 
 inline Vector3* Vector3::operator*(const Vector3& other) const {
@@ -270,9 +316,19 @@ inline Vector3* Vector3::operator*(const Vector3& other) const {
     return new Vector3(x * other.x, y * other.y, z * other.z);
 }
 
+inline Vector3* Vector3::operator*(float scalar) const {
+
+    return new Vector3(x * scalar, y * scalar, z * scalar);
+}
+
 inline Vector3* Vector3::operator/(const Vector3& other) const {
 
     return new Vector3(x / other.x, y / other.y, z / other.z);
+}
+
+inline Vector3* Vector3::operator/(float scalar) const {
+
+    return new Vector3(x / scalar, y / scalar, z / scalar);
 }
 
 inline void Vector3::operator+=(const Vector3& other) {
@@ -282,11 +338,25 @@ inline void Vector3::operator+=(const Vector3& other) {
     z += other.z;
 }
 
+inline void Vector3::operator+=(float scalar) {
+
+    x += scalar;
+    y += scalar;
+    z += scalar;
+}
+
 inline void Vector3::operator-=(const Vector3& other) {
 
     x -= other.x;
     y -= other.y;
     z -= other.z;
+}
+
+inline void Vector3::operator-=(float scalar) {
+
+    x -= scalar;
+    y -= scalar;
+    z -= scalar;
 }
 
 inline void Vector3::operator*=(const Vector3& other) {
@@ -296,11 +366,25 @@ inline void Vector3::operator*=(const Vector3& other) {
     z *= other.z;
 }
 
+inline void Vector3::operator*=(float scalar) {
+
+    x *= scalar;
+    y *= scalar;
+    z *= scalar;
+}
+
 inline void Vector3::operator/=(const Vector3& other) {
 
     x /= other.x;
     y /= other.y;
     z /= other.z;
+}
+
+inline void Vector3::operator/=(float scalar) {
+
+    x /= scalar;
+    y /= scalar;
+    z /= scalar;
 }
 
 //PUBLIC MEMBER FUNCTIONS
@@ -372,8 +456,7 @@ inline float Vector3::distance(const util::vec::Vector3& other) const {
 
 inline float Vector3::angleBetween(const util::vec::Vector3& other) const {
 
-    //get the dot product
-    float dot = dotProduct(other);
+    return acos(dotProduct(other) / (magnitude() * other.magnitude()));
 }
 
 inline void Vector3::addX(float v) {
