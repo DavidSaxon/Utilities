@@ -11,16 +11,38 @@
 #include <cmath>
 #include <sstream>
 
+#include "../exceptions/ArrayException.hpp"
+
 namespace util { namespace vec {
+
+//ENUMERATORS
+//!Access enumerators for the dimension values
+enum {
+
+    X = 0,
+    Y,
+    Z,
+    W
+};
+
+//!Access enumerators for the colour values
+enum {
+
+    R = 0,
+    G,
+    B,
+    A
+};
 
 class Vector4 {
 
     //FRIEND FUNCTIONS
     /*!Prints the vector to the output stream
-    @output the output stream to print to
+    @_output the output stream to print to
+    @_v the vector to print
     @return the changed output stream*/
-    friend std::ostream& operator<<(std::ostream& output,
-        const Vector4& v);
+    friend std::ostream& operator<< (std::ostream& _output,
+        const Vector4& _v);
 
 public:
 
@@ -45,12 +67,12 @@ public:
     }
 
     /*!Creates a vector by copying the other vector
-    @other the other vector to copy from*/
-    Vector4(const Vector4& other) :
-        x(other.x),
-        y(other.y),
-        z(other.z),
-        w(other.w) {
+    @_other the other vector to copy from*/
+    Vector4(const Vector4& _other) :
+        x(_other.x),
+        y(_other.y),
+        z(_other.z),
+        w(_other.w) {
     }
 
     //DESTRUCTOR
@@ -60,94 +82,107 @@ public:
 
     //OPERATORS
     /*!Copies the other vector's values to this vector
-    @other the other vector to copy from*/
-    Vector4& operator=(const Vector4& other);
+    @_other the other vector to copy from*/
+    Vector4& operator =(const Vector4& _other);
 
     /*!Checks if this vector and the other vector are equal
-    @other the other vector to compare with
+    @_other the other vector to compare with
     @return whether the vectors are equal*/
-    bool operator==(const Vector4& other) const;
+    bool operator ==(const Vector4& _other) const;
 
     /*!Checks if this vector and the other vector are not equal
-    @other the other vector to compare with
+    @_other the other vector to compare with
     @return whether the vectors are not equal*/
-    bool operator!=(const Vector4& other) const;
+    bool operator !=(const Vector4& _other) const;
 
-    /*!Creates a new vector from the addition of this and the other vector
-    @other the other vector to add with
-    @return the result of the addition*/
-    Vector4* operator+(const Vector4& other) const;
+    /*!Gets the value at the specified index
+    @_index the index
+    @return the value*/
+    float& operator [](unsigned _index);
+
+    /*!Gets the value at the specified index
+    @_index the index
+    @return the value*/
+    const float& operator [](unsigned _index) const;
+
+    /*!@return the vector with all elements negated*/
+    Vector4 operator -() const;
 
     /*!Creates a new vector from the addition of this and the scalar
-    @scalar the scale to add with
+    @_scalar the scale to add with
     @return the result of the addition*/
-    Vector4* operator+(float scalar) const;
+    Vector4 operator +(float _scalar) const;
 
-    /*!Creates a new vector from the subtraction of this and the other vector
-    @other the other vector to subtract with
-    @return the result of the subtraction*/
-    Vector4* operator-(const Vector4& other) const;
+    /*!Adds the value of the scalar to this vector
+    @_scalar the scalar to add*/
+    void operator +=(float _scalar);
+
+    /*!Creates a new vector from the addition of this and the other vector
+    @_other the other vector to add with
+    @return the result of the addition*/
+    Vector4 operator +(const Vector4& _other) const;
+
+    /*!Adds the value of the other vector to this vector
+    @_other the other vector to add to this*/
+    void operator +=(const Vector4& _other);
 
     /*!Creates a new vector from the subtraction of this and the scalar
-    @scalar the scale to add with
+    @_scalar the scale to add with
     @return the result of the subtraction*/
-    Vector4* operator-(float scalar) const;
+    Vector4 operator -(float _scalar) const;
+
+    /*!Subtracts the value of the scalar to this vector
+    @_scalar the scalar to add*/
+    void operator -=(float _scalar);
+
+    /*!Creates a new vector from the subtraction of this and the other vector
+    @_other the other vector to subtract with
+    @return the result of the subtraction*/
+    Vector4 operator -(const Vector4& _other) const;
+
+    /*!Subtracts the value of the other vector from this vector
+    @_other the other vector to subtract from this*/
+    void operator -=(const Vector4& _other);
+
+    /*!Creates a new vector from the multiplication of this and the scalar
+    @_scalar the scale to add with
+    @return the result of the multiplication*/
+    Vector4 operator *(float _scalar) const;
+
+    /*!Multiplies the value of the scalar to this vector
+    @_scalar the scalar to add*/
+    void operator *=(float _scalar);
 
     /*!Creates a new vector from the multiplication of this and the other vector
     #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
-    @other the other vector to multiply with
+    @_other the other vector to multiply with
     @return the result of the multiplication*/
-    Vector4* operator*(const Vector4& other) const;
-
-    /*!Creates a new vector from the multiplication of this and the scalar
-    @scalar the scale to add with
-    @return the result of the multiplication*/
-    Vector4* operator*(float scalar) const;
-
-    /*!Creates a new vector from the division of this and the other vector
-    #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
-    @other the other vector to divide with
-    @return the result of the division*/
-    Vector4* operator/(const Vector4& other) const;
-
-    /*!Creates a new vector from the division of this and the scalar
-    @scalar the scale to add with
-    @return the result of the division*/
-    Vector4* operator/(float scalar) const;
-
-    /*!Adds the value of the other vector to this vector
-    @other the other vector to add to this*/
-    void operator+=(const Vector4& other);
-
-    /*!Adds the value of the scalar to this vector
-    @scalar the scalar to add*/
-    void operator+=(float scalar);
-
-    /*!Subtracts the value of the other vector from this vector
-    @other the other vector to subtract from this*/
-    void operator-=(const Vector4& other);
-
-    /*!Subtracts the value of the scalar to this vector
-    @scalar the scalar to add*/
-    void operator-=(float scalar);
+    Vector4 operator *(const Vector4& _other) const;
 
     /*!Multiplies this vector by the other vector
     #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
-    @other the other vector to multiply by*/
-    void operator*=(const Vector4& other);
+    @_other the other vector to multiply by*/
+    void operator *=(const Vector4& _other);
 
-    /*!Multiplies the value of the scalar to this vector
-    @scalar the scalar to add*/
-    void operator*=(float scalar);
+    /*!Creates a new vector from the division of this and the scalar
+    @_scalar the scale to add with
+    @return the result of the division*/
+    Vector4 operator /(float _scalar) const;
+
+    /*!Divides the value of the scalar to this vector
+    @_scalar the scalar to add*/
+    void operator /=(float _scalar);
+
+    /*!Creates a new vector from the division of this and the other vector
+    #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
+    @_other the other vector to divide with
+    @return the result of the division*/
+    Vector4 operator /(const Vector4& _other) const;
 
     /*!Divides this vector by the other vector
     #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
-    @other the other vector to divide by*/
-    void operator/=(const Vector4& other);
-
-    /*!Divides the value of the scalar to this vector
-    @scalar the scalar to add*/
-    void operator/=(float scalar);
+    @_other the other vector to divide by*/
+    void operator /=(const Vector4& _other);
 
     //PUBLIC MEMBER FUNCTIONS
     /*!@return the 4D zero vector*/
@@ -169,62 +204,14 @@ public:
     float magnitude() const;
 
     /*!Computes the dot product of this vector and the other vector
-    @other the other vector
+    @_other the other vector
     @return the dot product*/
-    float dotProduct(const util::vec::Vector4& other) const;
+    float dotProduct(const util::vec::Vector4& _other) const;
 
     /*!Calculates the distance between this vector and the other vector
-    @other the vector
+    @_other the vector
     @return the distance*/
-    float distance(const util::vec::Vector4& other) const;
-
-    /*!@v the value to add to the x value of this vector*/
-    void addX(float v);
-
-    /*!@v the value to add to the the y value of this vector*/
-    void addY(float v);
-
-    /*!@v the value to add to the the z value of this vector*/
-    void addZ(float v);
-
-    /*!@v the value to add to the the w value of this vector*/
-    void addW(float v);
-
-    /*!@v the value to subtract from the x value of this vector*/
-    void subX(float v);
-
-    /*!@v the value to subtract from the y value of this vector*/
-    void subY(float v);
-
-    /*!@v the value to subtract from the z value of this vector*/
-    void subZ(float v);
-
-    /*!@v the value to subtract from the w value of this vector*/
-    void subW(float v);
-
-    /*!@v the value to multiply the x value of this vector by*/
-    void mulX(float v);
-
-    /*!@v the value to multiply the y value of this vector by*/
-    void mulY(float v);
-
-    /*!@v the value to multiply the z value of this vector by*/
-    void mulZ(float v);
-
-    /*!@v the value to multiply the w value of this vector by*/
-    void mulW(float v);
-
-    /*!@v the value to divide the x value of this vector by*/
-    void divX(float v);
-
-    /*!@v the value to divide the y value of this vector by*/
-    void divY(float v);
-
-    /*!@v the value to divide the z value of this vector by*/
-    void divZ(float v);
-
-    /*!@v the value to divide the w value of this vector by*/
-    void divW(float v);
+    float distance(const util::vec::Vector4& _other) const;
 
     /*!@return the vector as an array*/
     float* toArray() const;
@@ -240,6 +227,18 @@ public:
 
     /*!@return the w value*/
     float getW() const;
+
+    /*!@return the x value*/
+    float getR() const;
+
+    /*!@return the x value*/
+    float getG() const;
+
+    /*!@return the x value*/
+    float getB() const;
+
+    /*!@return the x value*/
+    float getA() const;
 
     /*!Sets the new values
     @_x the new x value
@@ -260,6 +259,18 @@ public:
     /*!@_w the new w value*/
     void setW(float _w);
 
+    /*!@_r the new x value*/
+    void setR(float _r);
+
+    /*!@_g the new y value*/
+    void setG(float _g);
+
+    /*!@_b the new z value*/
+    void setB(float _b);
+
+    /*!@_a the new w value*/
+    void setA(float _a);
+
     /*!Outputs the vector in string format
     @return the string of the vector*/
     std::string toString() const;
@@ -276,139 +287,201 @@ private:
 
 //INLINE
 //OPERATORS
-inline std::ostream& operator<<(std::ostream& output,
-    const Vector4& v) {
+inline std::ostream& operator <<(std::ostream& _output,
+    const Vector4& _v) {
 
     //print the vector to the output
-    output << v.toString();
+    _output << _v.toString();
 
-    return output;
+    return _output;
 }
 
-inline Vector4& Vector4::operator=(const Vector4& other) {
+inline Vector4& Vector4::operator =(const Vector4& _other) {
 
-    x = other.x;
-    y = other.y;
-    z = other.z;
-    w = other.w;
+    x = _other.x;
+    y = _other.y;
+    z = _other.z;
+    w = _other.w;
 
     return *this;
 }
 
-inline bool Vector4::operator==(const Vector4& other) const {
+inline bool Vector4::operator ==(const Vector4& _other) const {
 
-    return x == other.x && y == other.y && z == other.z && w == other.w;
+    return x == _other.x && y == _other.y && z == _other.z && w == _other.w;
 }
 
-inline bool Vector4::operator !=(const Vector4& other) const {
+inline bool Vector4::operator !=(const Vector4& _other) const {
 
-    return !((*this) == other);
+    return !((*this) == _other);
 }
 
-inline Vector4* Vector4::operator+(const Vector4& other) const {
+inline float& Vector4::operator [](unsigned _index) {
 
-    return new Vector4(x + other.x, y + other.y, z + other.z, w + other.w);
+    //check that the index is within bounds
+    if (_index > 3) {
+
+        throw util::ex::IndexOutOfBoundsException("index is greater than 3.");
+    }
+
+    switch (_index) {
+
+        case 0: {
+
+            return x;
+        }
+        case 1: {
+
+            return y;
+        }
+        case 2: {
+
+            return y;
+        }
+        default: {
+
+            return z;
+        }
+    }
 }
 
-inline Vector4* Vector4::operator+(float scalar) const {
+inline const float& Vector4::operator [](unsigned _index) const {
 
-    return new Vector4(x + scalar, y + scalar, z + scalar, w + scalar);
+    //check that the index is within bounds
+    if (_index > 3) {
+
+        throw util::ex::IndexOutOfBoundsException("index is greater than 3.");
+    }
+
+    switch (_index) {
+
+        case 0: {
+
+            return x;
+        }
+        case 1: {
+
+            return y;
+        }
+        case 2: {
+
+            return z;
+        }
+        default: {
+
+            return w;
+        }
+    }
 }
 
-inline Vector4* Vector4::operator-(const Vector4& other) const {
+inline Vector4 Vector4::operator -() const {
 
-    return new Vector4(x - other.x, y - other.y, z - other.z, w - other.w);
+    return Vector4(-x, -y, -z, -w);
 }
 
-inline Vector4* Vector4::operator-(float scalar) const {
+inline Vector4 Vector4::operator +(float _scalar) const {
 
-    return new Vector4(x - scalar, y - scalar, z - scalar, w - scalar);
+    return Vector4(x + _scalar, y + _scalar, z + _scalar, w + _scalar);
 }
 
-inline Vector4* Vector4::operator*(const Vector4& other) const {
+inline void Vector4::operator +=(float _scalar) {
 
-    return new Vector4(x * other.x, y * other.y, z * other.z, w * other.w);
+    x += _scalar;
+    y += _scalar;
+    z += _scalar;
+    w += _scalar;
 }
 
-inline Vector4* Vector4::operator*(float scalar) const {
+inline Vector4 Vector4::operator +(const Vector4& _other) const {
 
-    return new Vector4(x * scalar, y * scalar, z * scalar, w * scalar);
+    return Vector4(x + _other.x, y + _other.y, z + _other.z, w + _other.w);
 }
 
-inline Vector4* Vector4::operator/(const Vector4& other) const {
+inline void Vector4::operator +=(const Vector4& _other) {
 
-    return new Vector4(x / other.x, y / other.y, z / other.z, w / other.w);
+    x += _other.x;
+    y += _other.y;
+    z += _other.z;
+    w += _other.w;
 }
 
-inline Vector4* Vector4::operator/(float scalar) const {
+inline Vector4 Vector4::operator -(float _scalar) const {
 
-    return new Vector4(x / scalar, y / scalar, z / scalar, w / scalar);
+    return Vector4(x - _scalar, y - _scalar, z - _scalar, w - _scalar);
 }
 
-inline void Vector4::operator+=(const Vector4& other) {
+inline void Vector4::operator -=(float _scalar) {
 
-    x += other.x;
-    y += other.y;
-    z += other.z;
-    w += other.w;
+    x -= _scalar;
+    y -= _scalar;
+    z -= _scalar;
+    w -= _scalar;
 }
 
-inline void Vector4::operator+=(float scalar) {
+inline Vector4 Vector4::operator -(const Vector4& _other) const {
 
-    x += scalar;
-    y += scalar;
-    z += scalar;
-    w += scalar;
+    return Vector4(x - _other.x, y - _other.y, z - _other.z, w - _other.w);
 }
 
-inline void Vector4::operator-=(const Vector4& other) {
+inline void Vector4::operator -=(const Vector4& _other) {
 
-    x -= other.x;
-    y -= other.y;
-    z -= other.z;
-    w -= other.w;
+    x -= _other.x;
+    y -= _other.y;
+    z -= _other.z;
+    w -= _other.w;
 }
 
-inline void Vector4::operator-=(float scalar) {
+inline Vector4 Vector4::operator *(float _scalar) const {
 
-    x -= scalar;
-    y -= scalar;
-    z -= scalar;
-    w -= scalar;
+    return Vector4(x * _scalar, y * _scalar, z * _scalar, w * _scalar);
 }
 
-inline void Vector4::operator*=(const Vector4& other) {
+inline void Vector4::operator *=(float _scalar) {
 
-    x *= other.x;
-    y *= other.y;
-    z *= other.z;
-    w *= other.w;
+    x *= _scalar;
+    y *= _scalar;
+    z *= _scalar;
+    w *= _scalar;
 }
 
-inline void Vector4::operator*=(float scalar) {
+inline Vector4 Vector4::operator *(const Vector4& _other) const {
 
-    x *= scalar;
-    y *= scalar;
-    z *= scalar;
-    w *= scalar;
+    return Vector4(x * _other.x, y * _other.y, z * _other.z, w * _other.w);
 }
 
-inline void Vector4::operator/=(const Vector4& other) {
+inline void Vector4::operator *=(const Vector4& _other) {
 
-    x /= other.x;
-    y /= other.y;
-    z /= other.z;
-    w /= other.w;
+    x *= _other.x;
+    y *= _other.y;
+    z *= _other.z;
+    w *= _other.w;
 }
 
-inline void Vector4::operator/=(float scalar) {
+inline Vector4 Vector4::operator /(float _scalar) const {
 
-    x /= scalar;
-    y /= scalar;
-    z /= scalar;
-    w /= scalar;
+    return Vector4(x / _scalar, y / _scalar, z / _scalar, w / _scalar);
 }
 
+inline void Vector4::operator /=(float _scalar) {
+
+    x /= _scalar;
+    y /= _scalar;
+    z /= _scalar;
+    w /= _scalar;
+}
+
+inline Vector4 Vector4::operator /(const Vector4& _other) const {
+
+    return Vector4(x / _other.x, y / _other.y, z / _other.z, w / _other.w);
+}
+
+inline void Vector4::operator /=(const Vector4& _other) {
+
+    x /= _other.x;
+    y /= _other.y;
+    z /= _other.z;
+    w /= _other.w;
+}
 
 //PUBLIC MEMBER FUNCTIONS
 inline Vector4 Vector4::zero() {
@@ -454,95 +527,15 @@ inline float Vector4::magnitude() const {
     return distance(Vector4::zero());
 }
 
-inline float Vector4::dotProduct(const util::vec::Vector4& other)  const {
+inline float Vector4::dotProduct(const util::vec::Vector4& _other)  const {
 
-    return (x * other.x) + (y * other.y) + (z * other.z) + (w * other.w);
+    return (x * _other.x) + (y * _other.y) + (z * _other.z) + (w * _other.w);
 }
 
-inline float Vector4::distance(const util::vec::Vector4& other) const {
+inline float Vector4::distance(const util::vec::Vector4& _other) const {
 
-    return sqrt(pow(x - other.x, 2.0f) + pow(y - other.y, 2.0f) +
-        pow(z - other.z, 2.0f) + pow(w - other.w, 2.0f));
-}
-
-inline void Vector4::addX(float v) {
-
-    x += v;
-}
-
-inline void Vector4::addY(float v) {
-
-    y += v;
-}
-
-inline void Vector4::addZ(float v) {
-
-    z += v;
-}
-
-inline void Vector4::addW(float v) {
-
-    w += w;
-}
-
-inline void Vector4::subX(float v) {
-
-    x -= v;
-}
-
-inline void Vector4::subY(float v) {
-
-    y -= v;
-}
-
-inline void Vector4::subZ(float v) {
-
-    z -= v;
-}
-
-inline void Vector4::subW(float v) {
-
-    w -= v;
-}
-
-inline void Vector4::mulX(float v) {
-
-    x *= v;
-}
-
-inline void Vector4::mulY(float v) {
-
-    y *= v;
-}
-
-inline void Vector4::mulZ(float v) {
-
-    z *= v;
-}
-
-inline void Vector4::mulW(float v) {
-
-    w *= v;
-}
-
-inline void Vector4::divX(float v) {
-
-    x /= v;
-}
-
-inline void Vector4::divY(float v) {
-
-    y /= v;
-}
-
-inline void Vector4::divZ(float v) {
-
-    z /= v;
-}
-
-inline void Vector4::divW(float v) {
-
-    w /= v;
+    return sqrt(pow(x - _other.x, 2.0f) + pow(y - _other.y, 2.0f) +
+        pow(z - _other.z, 2.0f) + pow(w - _other.w, 2.0f));
 }
 
 inline float* Vector4::toArray() const {
@@ -576,6 +569,26 @@ inline float Vector4::getW() const {
     return w;
 }
 
+inline float Vector4::getR() const {
+
+    return x;
+}
+
+inline float Vector4::getG() const {
+
+    return y;
+}
+
+inline float Vector4::getB() const {
+
+    return z;
+}
+
+inline float Vector4::getA() const {
+
+    return w;
+}
+
 inline void Vector4::set(float _x, float _y, float _z, float _w) {
 
     x = _x;
@@ -602,6 +615,26 @@ inline void Vector4::setZ(float _z) {
 inline void Vector4::setW(float _w) {
 
     w = _w;
+}
+
+inline void Vector4::setR(float _r) {
+
+    x = _r;
+}
+
+inline void Vector4::setG(float _g) {
+
+    y = _g;
+}
+
+inline void Vector4::setB(float _b) {
+
+    z = _b;
+}
+
+inline void Vector4::setA(float _a) {
+
+    w = _a;
 }
 
 inline std::string Vector4::toString() const {
