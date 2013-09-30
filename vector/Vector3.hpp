@@ -411,51 +411,9 @@ inline Vector3 Vector3::operator -() const {
     return Vector3(-x, -y, -z);
 }
 
-inline Vector3 Vector3::operator +(const Vector3& _other) const {
-
-    return Vector3(x + _other.x, y + _other.y, z + _other.z);
-}
-
 inline Vector3 Vector3::operator +(float _scalar) const {
 
     return Vector3(x + _scalar, y + _scalar, z + _scalar);
-}
-
-inline Vector3 Vector3::operator -(const Vector3& _other) const {
-
-    return Vector3(x - _other.x, y - _other.y, z - _other.z);
-}
-
-inline Vector3 Vector3::operator -(float _scalar) const {
-
-    return Vector3(x - _scalar, y - _scalar, z - _scalar);
-}
-
-inline Vector3 Vector3::operator *(const Vector3& _other) const {
-
-    return Vector3(x * _other.x, y * _other.y, z * _other.z);
-}
-
-inline Vector3 Vector3::operator *(float _scalar) const {
-
-    return Vector3(x * _scalar, y * _scalar, z * _scalar);
-}
-
-inline Vector3 Vector3::operator /(const Vector3& _other) const {
-
-    return Vector3(x / _other.x, y / _other.y, z / _other.z);
-}
-
-inline Vector3 Vector3::operator /(float _scalar) const {
-
-    return Vector3(x / _scalar, y / _scalar, z / _scalar);
-}
-
-inline void Vector3::operator +=(const Vector3& _other) {
-
-    x += _other.x;
-    y += _other.y;
-    z += _other.z;
 }
 
 inline void Vector3::operator +=(float _scalar) {
@@ -465,11 +423,21 @@ inline void Vector3::operator +=(float _scalar) {
     z += _scalar;
 }
 
-inline void Vector3::operator -=(const Vector3& _other) {
+inline Vector3 Vector3::operator +(const Vector3& _other) const {
 
-    x -= _other.x;
-    y -= _other.y;
-    z -= _other.z;
+    return Vector3(x + _other.x, y + _other.y, z + _other.z);
+}
+
+inline void Vector3::operator +=(const Vector3& _other) {
+
+    x += _other.x;
+    y += _other.y;
+    z += _other.z;
+}
+
+inline Vector3 Vector3::operator -(float _scalar) const {
+
+    return Vector3(x - _scalar, y - _scalar, z - _scalar);
 }
 
 inline void Vector3::operator -=(float _scalar) {
@@ -479,11 +447,21 @@ inline void Vector3::operator -=(float _scalar) {
     z -= _scalar;
 }
 
-inline void Vector3::operator *=(const Vector3& _other) {
+inline Vector3 Vector3::operator -(const Vector3& _other) const {
 
-    x *= _other.x;
-    y *= _other.y;
-    z *= _other.z;
+    return Vector3(x - _other.x, y - _other.y, z - _other.z);
+}
+
+inline void Vector3::operator -=(const Vector3& _other) {
+
+    x -= _other.x;
+    y -= _other.y;
+    z -= _other.z;
+}
+
+inline Vector3 Vector3::operator *(float _scalar) const {
+
+    return Vector3(x * _scalar, y * _scalar, z * _scalar);
 }
 
 inline void Vector3::operator *=(float _scalar) {
@@ -493,11 +471,21 @@ inline void Vector3::operator *=(float _scalar) {
     z *= _scalar;
 }
 
-inline void Vector3::operator /=(const Vector3& _other) {
+inline Vector3 Vector3::operator *(const Vector3& _other) const {
 
-    x /= _other.x;
-    y /= _other.y;
-    z /= _other.z;
+    return Vector3(x * _other.x, y * _other.y, z * _other.z);
+}
+
+inline void Vector3::operator *=(const Vector3& _other) {
+
+    x *= _other.x;
+    y *= _other.y;
+    z *= _other.z;
+}
+
+inline Vector3 Vector3::operator /(float _scalar) const {
+
+    return Vector3(x / _scalar, y / _scalar, z / _scalar);
 }
 
 inline void Vector3::operator /=(float _scalar) {
@@ -505,6 +493,18 @@ inline void Vector3::operator /=(float _scalar) {
     x /= _scalar;
     y /= _scalar;
     z /= _scalar;
+}
+
+inline Vector3 Vector3::operator /(const Vector3& _other) const {
+
+    return Vector3(x / _other.x, y / _other.y, z / _other.z);
+}
+
+inline void Vector3::operator /=(const Vector3& _other) {
+
+    x /= _other.x;
+    y /= _other.y;
+    z /= _other.z;
 }
 
 //PUBLIC MEMBER FUNCTIONS
