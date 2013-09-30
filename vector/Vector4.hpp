@@ -15,6 +15,8 @@
 
 namespace util { namespace vec {
 
+namespace v4 {
+
 //ENUMERATORS
 //!Access enumerators for the dimension values
 enum {
@@ -33,6 +35,8 @@ enum {
     B,
     A
 };
+
+} //v4
 
 class Vector4 {
 
@@ -188,6 +192,54 @@ public:
     /*!@return the 4D zero vector*/
     static Vector4 zero();
 
+    /*!@return the x 4d vector*/
+    static Vector4 xVector();
+
+    /*!@return the y 4d vector*/
+    static Vector4 yVector();
+
+    /*!@return the z 4d vector*/
+    static Vector4 zVector();
+
+    /*!@return the w 4d vector*/
+    static Vector4 wVector();
+
+    /*!@return the white rgba vector*/
+    static Vector4 white();
+
+    /*!@return the black rgba vector*/
+    static Vector4 black();
+
+    /*!@return the grey rgba vector*/
+    static Vector4 grey();
+
+    /*!@return the red rgba vector*/
+    static Vector4 red();
+
+    /*!@return the green rgba vector*/
+    static Vector4 green();
+
+    /*!@return the blue rgba vector*/
+    static Vector4 blue();
+
+    /*!@return the yellow rgba vector*/
+    static Vector4 yellow();
+
+    /*!@return the orange rgba vector*/
+    static Vector4 orange();
+
+    /*!@return the brown rgba vector*/
+    static Vector4 brown();
+
+    /*!@return the cyan rgba vector*/
+    static Vector4 cyan();
+
+    /*!@return the pink rgba vector*/
+    static Vector4 pink();
+
+    /*!@return the purple rgba vector*/
+    static Vector4 purple();
+
     /*!Resets the vector to the zero vector*/
     void clear();
 
@@ -206,12 +258,12 @@ public:
     /*!Computes the dot product of this vector and the other vector
     @_other the other vector
     @return the dot product*/
-    float dotProduct(const util::vec::Vector4& _other) const;
+    float dotProduct(const Vector4& _other) const;
 
     /*!Calculates the distance between this vector and the other vector
     @_other the vector
     @return the distance*/
-    float distance(const util::vec::Vector4& _other) const;
+    float distance(const Vector4& _other) const;
 
     /*!@return the vector as an array*/
     float* toArray() const;
@@ -336,11 +388,11 @@ inline float& Vector4::operator [](unsigned _index) {
         }
         case 2: {
 
-            return y;
+            return z;
         }
         default: {
 
-            return z;
+            return w;
         }
     }
 }
@@ -489,6 +541,86 @@ inline Vector4 Vector4::zero() {
     return Vector4();
 }
 
+inline Vector4 Vector4::xVector() {
+
+    return Vector4(1.0f, 0.0f, 0.0f, 0.0f);
+}
+
+inline Vector4 Vector4::yVector() {
+
+    return Vector4(0.0f, 1.0f, 0.0f, 0.0f);
+}
+
+inline Vector4 Vector4::zVector() {
+
+    return Vector4(0.0f, 0.0f, 1.0f, 0.0f);
+}
+
+inline Vector4 Vector4::wVector() {
+
+    return Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+inline Vector4 Vector4::white() {
+
+    return Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
+inline Vector4 Vector4::black() {
+
+    return Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+inline Vector4 Vector4::grey() {
+
+    return Vector4(0.5f, 0.5f, 0.5f, 1.0f);
+}
+
+inline Vector4 Vector4::red() {
+
+    return Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+}
+
+inline Vector4 Vector4::green() {
+
+    return Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+}
+
+inline Vector4 Vector4::blue() {
+
+    return Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+}
+
+inline Vector4 Vector4::yellow() {
+
+    return Vector4(1.0f, 1.0f, 0.0f, 1.0f);
+}
+
+inline Vector4 Vector4::orange() {
+
+    return Vector4(1.0f, 0.5f, 0.0f, 1.0f);
+}
+
+inline Vector4 Vector4::brown() {
+
+    return Vector4(0.32f, 0.18f, 0.0f, 1.0f);
+}
+
+inline Vector4 Vector4::cyan() {
+
+    return Vector4(0.0f, 1.0f, 1.0f, 1.0f);
+}
+
+inline Vector4 Vector4::pink() {
+
+    return Vector4(1.0f, 0.0f, 1.0f, 1.0f);
+}
+
+inline Vector4 Vector4::purple() {
+
+    return Vector4(0.5f, 0.0f, 1.0f, 1.0f);
+}
+
 inline void Vector4::clear() {
 
     x = 0;
@@ -527,12 +659,12 @@ inline float Vector4::magnitude() const {
     return distance(Vector4::zero());
 }
 
-inline float Vector4::dotProduct(const util::vec::Vector4& _other)  const {
+inline float Vector4::dotProduct(const Vector4& _other)  const {
 
     return (x * _other.x) + (y * _other.y) + (z * _other.z) + (w * _other.w);
 }
 
-inline float Vector4::distance(const util::vec::Vector4& _other) const {
+inline float Vector4::distance(const Vector4& _other) const {
 
     return sqrt(pow(x - _other.x, 2.0f) + pow(y - _other.y, 2.0f) +
         pow(z - _other.z, 2.0f) + pow(w - _other.w, 2.0f));
