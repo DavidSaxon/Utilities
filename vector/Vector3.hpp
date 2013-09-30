@@ -11,16 +11,40 @@
 #include <cmath>
 #include <sstream>
 
+#include "../exceptions/ArrayException.hpp"
+
 namespace util { namespace vec {
+
+namespace v3 {
+
+//ENUMERATORS
+//!Access enumerators for the dimension values
+enum {
+
+    X = 0,
+    Y,
+    Z
+};
+
+//!Access enumerators for the colour values
+enum {
+
+    R = 0,
+    G,
+    B
+};
+
+} //v3
 
 class Vector3 {
 
     //FRIEND FUNCTIONS
     /*!Prints the vector to the output stream
-    @output the output stream to print to
+    @_output the output stream to print to
+    @_v the vector to print
     @return the changed output stream*/
-    friend std::ostream& operator<<(std::ostream& output,
-        const Vector3& v);
+    friend std::ostream& operator <<(std::ostream& _output,
+        const Vector3& _v);
 
 public:
 
@@ -43,11 +67,11 @@ public:
     }
 
     /*!Creates a vector by copying the other vector
-    @other the other vector to copy from*/
-    Vector3(const Vector3& other) :
-        x(other.x),
-        y(other.y),
-        z(other.z) {
+    @_other the other vector to copy from*/
+    Vector3(const Vector3& _other) :
+        x(_other.x),
+        y(_other.y),
+        z(_other.z) {
     }
 
     //DESTRUCTOR
@@ -57,98 +81,157 @@ public:
 
     //OPERATORS
     /*!Copies the other vector's values to this vector
-    @other the other vector to copy from*/
-    Vector3& operator=(const Vector3& other);
+    @_other the other vector to copy from*/
+    Vector3& operator =(const Vector3& _other);
 
     /*!Checks if this vector and the other vector are equal
-    @other the other vector to compare with
+    @_other the other vector to compare with
     @return whether the vectors are equal*/
-    bool operator==(const Vector3& other) const;
+    bool operator ==(const Vector3& _other) const;
 
     /*!Checks if this vector and the other vector are not equal
-    @other the other vector to compare with
+    @_other the other vector to compare with
     @return whether the vectors are not equal*/
-    bool operator!=(const Vector3& other) const;
+    bool operator !=(const Vector3& _other) const;
 
-    /*!Creates a new vector from the addition of this and the other vector
-    @other the other vector to add with
-    @return the result of the addition*/
-    Vector3* operator+(const Vector3& other) const;
+    /*!Gets the value at the specified index
+    @_index the index
+    @return the value*/
+    float& operator [](unsigned _index);
+
+    /*!Gets the value at the specified index
+    @_index the index
+    @return the value*/
+    const float& operator [](unsigned _index) const;
+
+    /*!@return the vector with all elements negated*/
+    Vector3 operator -() const;
 
     /*!Creates a new vector from the addition of this and the scalar
-    @scalar the scale to add with
+    @_scalar the scale to add with
     @return the result of the addition*/
-    Vector3* operator+(float scalar) const;
+    Vector3 operator +(float _scalar) const;
 
-    /*!Creates a new vector from the subtraction of this and the other vector
-    @other the other vector to subtract with
-    @return the result of the subtraction*/
-    Vector3* operator-(const Vector3& other) const;
+    /*!Adds the value of the scalar to this vector
+    @_scalar the scalar to add*/
+    void operator +=(float _scalar);
 
-    /*!Creates a new vector from the subtraction of this and the scalar
-    @scalar the scale to add with
-    @return the result of the subtraction*/
-    Vector3* operator-(float scalar) const;
-
-    /*!Creates a new vector from the multiplication of this and the other vector
-    #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
-    @other the other vector to multiply with
-    @return the result of the multiplication*/
-    Vector3* operator*(const Vector3& other) const;
-
-    /*!Creates a new vector from the multiplication of this and the scalar
-    @scalar the scale to add with
-    @return the result of the multiplication*/
-    Vector3* operator*(float scalar) const;
-
-    /*!Creates a new vector from the division of this and the other vector
-    #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
-    @other the other vector to divide with
-    @return the result of the division*/
-    Vector3* operator/(const Vector3& other) const;
-
-    /*!Creates a new vector from the division of this and the scalar
-    @scalar the scale to add with
-    @return the result of the division*/
-    Vector3* operator/(float scalar) const;
+    /*!Creates a new vector from the addition of this and the other vector
+    @_other the other vector to add with
+    @return the result of the addition*/
+    Vector3 operator +(const Vector3& _other) const;
 
     /*!Adds the value of the other vector to this vector
     @other the other vector to add to this*/
-    void operator+=(const Vector3& other);
+    void operator +=(const Vector3& other);
 
-    /*!Adds the value of the scalar to this vector
-    @scalar the scalar to add*/
-    void operator+=(float scalar);
-
-    /*!Subtracts the value of the other vector from this vector
-    @other the other vector to subtract from this*/
-    void operator-=(const Vector3& other);
+    /*!Creates a new vector from the subtraction of this and the scalar
+    @_scalar the scale to add with
+    @return the result of the subtraction*/
+    Vector3 operator -(float _scalar) const;
 
     /*!Subtracts the value of the scalar to this vector
-    @scalar the scalar to add*/
-    void operator-=(float scalar);
+    @_scalar the scalar to add*/
+    void operator -=(float _scalar);
+
+    /*!Creates a new vector from the subtraction of this and the other vector
+    @_other the other vector to subtract with
+    @return the result of the subtraction*/
+    Vector3 operator -(const Vector3& _other) const;
+
+    /*!Subtracts the value of the other vector from this vector
+    @_other the other vector to subtract from this*/
+    void operator -=(const Vector3& _other);
+
+    /*!Creates a new vector from the multiplication of this and the scalar
+    @_scalar the scale to add with
+    @return the result of the multiplication*/
+    Vector3 operator *(float _scalar) const;
+
+    /*!Multiplies the value of the scalar to this vector
+    @_scalar the scalar to add*/
+    void operator *=(float _scalar);
+
+    /*!Creates a new vector from the multiplication of this and the other vector
+    #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
+    @_other the other vector to multiply with
+    @return the result of the multiplication*/
+    Vector3 operator *(const Vector3& _other) const;
+
 
     /*!Multiplies this vector by the other vector
     #NOTE: where multiplication is evaluated as (x1 * x2), (y1 * y2), ....
-    @other the other vector to multiply by*/
-    void operator*=(const Vector3& other);
+    @_other the other vector to multiply by*/
+    void operator *=(const Vector3& _other);
 
-    /*!Multiplies the value of the scalar to this vector
-    @scalar the scalar to add*/
-    void operator*=(float scalar);
+    /*!Creates a new vector from the division of this and the scalar
+    @_scalar the scale to add with
+    @return the result of the division*/
+    Vector3 operator /(float _scalar) const;
+
+    /*!Divides the value of the scalar to this vector
+    @_scalar the scalar to add*/
+    void operator /=(float _scalar);
+
+    /*!Creates a new vector from the division of this and the other vector
+    #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
+    @_other the other vector to divide with
+    @return the result of the division*/
+    Vector3 operator /(const Vector3& _other) const;
 
     /*!Divides this vector by the other vector
     #NOTE: where division is evaluated as (x1 / x2), (y1 / y2), ....
-    @other the other vector to divide by*/
-    void operator/=(const Vector3& other);
-
-    /*!Divides the value of the scalar to this vector
-    @scalar the scalar to add*/
-    void operator/=(float scalar);
+    @_other the other vector to divide by*/
+    void operator /=(const Vector3& _other);
 
     //PUBLIC MEMBER FUNCTIONS
     /*!@return the 3D zero vector*/
     static Vector3 zero();
+
+    /*!@return the x 3d vector*/
+    static Vector3 xVector();
+
+    /*!@return the y 3d vector*/
+    static Vector3 yVector();
+
+    /*!@return the z 3d vector*/
+    static Vector3 zVector();
+
+    /*!@return the white rgb vector*/
+    static Vector3 white();
+
+    /*!@return the black rgb vector*/
+    static Vector3 black();
+
+    /*!@return the grey rgb vector*/
+    static Vector3 grey();
+
+    /*!@return the red rgb vector*/
+    static Vector3 red();
+
+    /*!@return the green rgb vector*/
+    static Vector3 green();
+
+    /*!@return the blue rgb vector*/
+    static Vector3 blue();
+
+    /*!@return the yellow rgb vector*/
+    static Vector3 yellow();
+
+    /*!@return the orange rgb vector*/
+    static Vector3 orange();
+
+    /*!@return the brown rgb vector*/
+    static Vector3 brown();
+
+    /*!@return the cyan rgb vector*/
+    static Vector3 cyan();
+
+    /*!@return the pink rgb vector*/
+    static Vector3 pink();
+
+    /*!@return the purple rgb vector*/
+    static Vector3 purple();
 
     /*!Resets the vector to the zero vector*/
     void clear();
@@ -166,60 +249,24 @@ public:
     float magnitude() const;
 
     /*!Computes the dot product of this vector and the other vector
-    @other the other vector
+    @_other the other vector
     @return the dot product*/
-    float dotProduct(const util::vec::Vector3& other) const;
+    float dotProduct(const Vector3& _other) const;
 
     /*!Computes the cross product of this vector and the other vector
-    @other the other vector
+    @_other the other vector
     @return the vector that is the result of the cross product*/
-    util::vec::Vector3* crossProduct(const util::vec::Vector3& other) const;
+    Vector3 crossProduct(const Vector3& _other) const;
 
     /*!Calculates the distance between this vector and the other vector
-    @other the vector
+    @_other the vector
     @return the distance*/
-    float distance(const util::vec::Vector3& other) const;
+    float distance(const Vector3& _other) const;
 
     /*Calculates the angle between this vector and the other vector
-    @other the other vector
+    @_other the other vector
     @return the angle between the two vectors*/
-    float angleBetween(const util::vec::Vector3& other) const;
-
-    /*!@v the value to add to the x value of this vector*/
-    void addX(float v);
-
-    /*!@v the value to add to the the y value of this vector*/
-    void addY(float v);
-
-    /*!@v the value to add to the the z value of this vector*/
-    void addZ(float v);
-
-    /*!@v the value to subtract from the x value of this vector*/
-    void subX(float v);
-
-    /*!@v the value to subtract from the y value of this vector*/
-    void subY(float v);
-
-    /*!@v the value to subtract from the z value of this vector*/
-    void subZ(float v);
-
-    /*!@v the value to multiply the x value of this vector by*/
-    void mulX(float v);
-
-    /*!@v the value to multiply the y value of this vector by*/
-    void mulY(float v);
-
-    /*!@v the value to multiply the z value of this vector by*/
-    void mulZ(float v);
-
-    /*!@v the value to divide the x value of this vector by*/
-    void divX(float v);
-
-    /*!@v the value to divide the y value of this vector by*/
-    void divY(float v);
-
-    /*!@v the value to divide the z value of this vector by*/
-    void divZ(float v);
+    float angleBetween(const Vector3& _other) const;
 
     /*!@return the vector as an array*/
     float* toArray() const;
@@ -232,6 +279,15 @@ public:
 
     /*!@return the z value*/
     float getZ() const;
+
+    /*!@return the x value*/
+    float getR() const;
+
+    /*!@return the y value*/
+    float getG() const;
+
+    /*!@return the z value*/
+    float getB() const;
 
     /*!Sets the new values
     @_x the new x value
@@ -248,6 +304,15 @@ public:
     /*!@_z the new z value*/
     void setZ(float _z);
 
+    /*!@_r the new x value*/
+    void setR(float _r);
+
+    /*!@_g the new y value*/
+    void setG(float _g);
+
+    /*!@_b the new z value*/
+    void setB(float _b);
+
     /*!Outputs the vector in string format
     @return the string of the vector*/
     std::string toString() const;
@@ -263,134 +328,264 @@ private:
 
 //INLINE
 //OPERATORS
-inline std::ostream& operator<<(std::ostream& output,
-    const Vector3& v) {
+inline std::ostream& operator <<(std::ostream& _output,
+    const Vector3& _v) {
 
     //print the vector to the output
-    output << v.toString();
+    _output << _v.toString();
 
-    return output;
+    return _output;
 }
 
-inline Vector3& Vector3::operator=(const Vector3& other) {
+inline Vector3& Vector3::operator =(const Vector3& _other) {
 
-    x = other.x;
-    y = other.y;
-    z = other.z;
+    x = _other.x;
+    y = _other.y;
+    z = _other.z;
 
     return *this;
 }
 
-inline bool Vector3::operator==(const Vector3& other) const {
+inline bool Vector3::operator ==(const Vector3& _other) const {
 
-    return x == other.x && y == other.y && z == other.z;
+    return x == _other.x && y == _other.y && z == _other.z;
 }
 
-inline bool Vector3::operator !=(const Vector3& other) const {
+inline bool Vector3::operator  !=(const Vector3& _other) const {
 
-    return !((*this) == other);
+    return !((*this) == _other);
 }
 
-inline Vector3* Vector3::operator+(const Vector3& other) const {
+inline float& Vector3::operator [](unsigned _index) {
 
-    return new Vector3(x + other.x, y + other.y, z + other.z);
+    //check that the index is within bounds
+    if (_index > 2) {
+
+        throw util::ex::IndexOutOfBoundsException("index is greater than 2.");
+    }
+
+    switch (_index) {
+
+        case 0: {
+
+            return x;
+        }
+        case 1: {
+
+            return y;
+        }
+        default: {
+
+            return z;
+        }
+    }
 }
 
-inline Vector3* Vector3::operator+(float scalar) const {
+inline const float& Vector3::operator [](unsigned _index) const {
 
-    return new Vector3(x + scalar, y + scalar, z + scalar);
+    //check that the index is within bounds
+    if (_index > 2) {
+
+        throw util::ex::IndexOutOfBoundsException("index is greater than 2.");
+    }
+
+    switch (_index) {
+
+        case 0: {
+
+            return x;
+        }
+        case 1: {
+
+            return y;
+        }
+        default: {
+
+            return z;
+        }
+    }
 }
 
-inline Vector3* Vector3::operator-(const Vector3& other) const {
+inline Vector3 Vector3::operator -() const {
 
-    return new Vector3(x - other.x, y - other.y, z - other.z);
+    return Vector3(-x, -y, -z);
 }
 
-inline Vector3* Vector3::operator-(float scalar) const {
+inline Vector3 Vector3::operator +(const Vector3& _other) const {
 
-    return new Vector3(x - scalar, y - scalar, z - scalar);
+    return Vector3(x + _other.x, y + _other.y, z + _other.z);
 }
 
-inline Vector3* Vector3::operator*(const Vector3& other) const {
+inline Vector3 Vector3::operator +(float _scalar) const {
 
-    return new Vector3(x * other.x, y * other.y, z * other.z);
+    return Vector3(x + _scalar, y + _scalar, z + _scalar);
 }
 
-inline Vector3* Vector3::operator*(float scalar) const {
+inline Vector3 Vector3::operator -(const Vector3& _other) const {
 
-    return new Vector3(x * scalar, y * scalar, z * scalar);
+    return Vector3(x - _other.x, y - _other.y, z - _other.z);
 }
 
-inline Vector3* Vector3::operator/(const Vector3& other) const {
+inline Vector3 Vector3::operator -(float _scalar) const {
 
-    return new Vector3(x / other.x, y / other.y, z / other.z);
+    return Vector3(x - _scalar, y - _scalar, z - _scalar);
 }
 
-inline Vector3* Vector3::operator/(float scalar) const {
+inline Vector3 Vector3::operator *(const Vector3& _other) const {
 
-    return new Vector3(x / scalar, y / scalar, z / scalar);
+    return Vector3(x * _other.x, y * _other.y, z * _other.z);
 }
 
-inline void Vector3::operator+=(const Vector3& other) {
+inline Vector3 Vector3::operator *(float _scalar) const {
 
-    x += other.x;
-    y += other.y;
-    z += other.z;
+    return Vector3(x * _scalar, y * _scalar, z * _scalar);
 }
 
-inline void Vector3::operator+=(float scalar) {
+inline Vector3 Vector3::operator /(const Vector3& _other) const {
 
-    x += scalar;
-    y += scalar;
-    z += scalar;
+    return Vector3(x / _other.x, y / _other.y, z / _other.z);
 }
 
-inline void Vector3::operator-=(const Vector3& other) {
+inline Vector3 Vector3::operator /(float _scalar) const {
 
-    x -= other.x;
-    y -= other.y;
-    z -= other.z;
+    return Vector3(x / _scalar, y / _scalar, z / _scalar);
 }
 
-inline void Vector3::operator-=(float scalar) {
+inline void Vector3::operator +=(const Vector3& _other) {
 
-    x -= scalar;
-    y -= scalar;
-    z -= scalar;
+    x += _other.x;
+    y += _other.y;
+    z += _other.z;
 }
 
-inline void Vector3::operator*=(const Vector3& other) {
+inline void Vector3::operator +=(float _scalar) {
 
-    x *= other.x;
-    y *= other.y;
-    z *= other.z;
+    x += _scalar;
+    y += _scalar;
+    z += _scalar;
 }
 
-inline void Vector3::operator*=(float scalar) {
+inline void Vector3::operator -=(const Vector3& _other) {
 
-    x *= scalar;
-    y *= scalar;
-    z *= scalar;
+    x -= _other.x;
+    y -= _other.y;
+    z -= _other.z;
 }
 
-inline void Vector3::operator/=(const Vector3& other) {
+inline void Vector3::operator -=(float _scalar) {
 
-    x /= other.x;
-    y /= other.y;
-    z /= other.z;
+    x -= _scalar;
+    y -= _scalar;
+    z -= _scalar;
 }
 
-inline void Vector3::operator/=(float scalar) {
+inline void Vector3::operator *=(const Vector3& _other) {
 
-    x /= scalar;
-    y /= scalar;
-    z /= scalar;
+    x *= _other.x;
+    y *= _other.y;
+    z *= _other.z;
+}
+
+inline void Vector3::operator *=(float _scalar) {
+
+    x *= _scalar;
+    y *= _scalar;
+    z *= _scalar;
+}
+
+inline void Vector3::operator /=(const Vector3& _other) {
+
+    x /= _other.x;
+    y /= _other.y;
+    z /= _other.z;
+}
+
+inline void Vector3::operator /=(float _scalar) {
+
+    x /= _scalar;
+    y /= _scalar;
+    z /= _scalar;
 }
 
 //PUBLIC MEMBER FUNCTIONS
 inline Vector3 Vector3::zero() {
 
     return Vector3();
+}
+
+inline Vector3 Vector3::xVector() {
+
+    return Vector3(1.0f, 0.0f, 0.0f);
+}
+
+inline Vector3 Vector3::yVector() {
+
+    return Vector3(0.0f, 1.0f, 0.0f);
+}
+
+inline Vector3 Vector3::zVector() {
+
+    return Vector3(0.0f, 0.0f, 1.0f);
+}
+
+inline Vector3 Vector3::white() {
+
+    return Vector3(1.0f, 1.0f, 1.0f);
+}
+
+inline Vector3 Vector3::black() {
+
+    return Vector3(0.0f, 0.0f, 0.0f);
+}
+
+inline Vector3 Vector3::grey() {
+
+    return Vector3(0.5f, 0.5f, 0.5f);
+}
+
+inline Vector3 Vector3::red() {
+
+    return Vector3(1.0f, 0.0f, 0.0f);
+}
+
+inline Vector3 Vector3::green() {
+
+    return Vector3(0.0f, 1.0f, 0.0f);
+}
+
+inline Vector3 Vector3::blue() {
+
+    return Vector3(0.0f, 0.0f, 1.0f);
+}
+
+inline Vector3 Vector3::yellow() {
+
+    return Vector3(1.0f, 1.0f, 0.0f);
+}
+
+inline Vector3 Vector3::orange() {
+
+    return Vector3(1.0f, 0.5f, 0.0f);
+}
+
+inline Vector3 Vector3::brown() {
+
+    return Vector3(0.32f, 0.18f, 0.0f);
+}
+
+inline Vector3 Vector3::cyan() {
+
+    return Vector3(0.0f, 1.0f, 1.0f);
+}
+
+inline Vector3 Vector3::pink() {
+
+    return Vector3(1.0f, 0.0f, 1.0f);
+}
+
+inline Vector3 Vector3::purple() {
+
+    return Vector3(0.5f, 0.0f, 1.0f);
 }
 
 inline void Vector3::clear() {
@@ -428,95 +623,34 @@ inline float Vector3::magnitude() const {
     return distance(Vector3::zero());
 }
 
-inline float Vector3::dotProduct(const util::vec::Vector3& other) const {
+inline float Vector3::dotProduct(const Vector3& _other) const {
 
-    return (x * other.x) + (y * other.y) + (z * other.z);
+    return (x * _other.x) + (y * _other.y) + (z * _other.z);
 }
 
-inline util::vec::Vector3* Vector3::crossProduct(
-    const util::vec::Vector3& other) const {
+inline Vector3 Vector3::crossProduct(const Vector3& _other) const {
 
     //the cross product values
     float cx = 0.0f;
     float cy = 0.0f;
     float cz = 0.0f;
 
-    cx = (y * other.z) - (z * other.y);
-    cy = (x * other.z) - (z * other.x);
-    cz = (x * other.y) - (y * other.x);
+    cx = (y * _other.z) - (z * _other.y);
+    cy = (x * _other.z) - (z * _other.x);
+    cz = (x * _other.y) - (y * _other.x);
 
-    return new Vector3(cx, cy, cz);
+    return Vector3(cx, cy, cz);
 }
 
-inline float Vector3::distance(const util::vec::Vector3& other) const {
+inline float Vector3::distance(const Vector3& _other) const {
 
-    return sqrt(pow(x - other.x, 2.0f) + pow(y - other.y, 2.0f) +
-        pow(z - other.z, 2.0f));
+    return sqrt(pow(x - _other.x, 2.0f) + pow(y - _other.y, 2.0f) +
+        pow(z - _other.z, 2.0f));
 }
 
-inline float Vector3::angleBetween(const util::vec::Vector3& other) const {
+inline float Vector3::angleBetween(const Vector3& _other) const {
 
-    return acos(dotProduct(other) / (magnitude() * other.magnitude()));
-}
-
-inline void Vector3::addX(float v) {
-
-    x += v;
-}
-
-inline void Vector3::addY(float v) {
-
-    y += v;
-}
-
-inline void Vector3::addZ(float v) {
-
-    z += v;
-}
-
-inline void Vector3::subX(float v) {
-
-    x -= v;
-}
-
-inline void Vector3::subY(float v) {
-
-    y -= v;
-}
-
-inline void Vector3::subZ(float v) {
-
-    z -= v;
-}
-
-inline void Vector3::mulX(float v) {
-
-    x *= v;
-}
-
-inline void Vector3::mulY(float v) {
-
-    y *= v;
-}
-
-inline void Vector3::mulZ(float v) {
-
-    z *= v;
-}
-
-inline void Vector3::divX(float v) {
-
-    x /= v;
-}
-
-inline void Vector3::divY(float v) {
-
-    y /= v;
-}
-
-inline void Vector3::divZ(float v) {
-
-    z /= v;
+    return acos(dotProduct(_other) / (magnitude() * _other.magnitude()));
 }
 
 inline float* Vector3::toArray() const {
@@ -544,6 +678,21 @@ inline float Vector3::getZ() const {
     return z;
 }
 
+inline float Vector3::getR() const {
+
+    return x;
+}
+
+inline float Vector3::getG() const {
+
+    return y;
+}
+
+inline float Vector3::getB() const {
+
+    return z;
+}
+
 inline void Vector3::set(float _x, float _y, float _z) {
 
     x = _x;
@@ -564,6 +713,21 @@ inline void Vector3::setY(float _y) {
 inline void Vector3::setZ(float _z) {
 
     z = _z;
+}
+
+inline void Vector3::setR(float _r) {
+
+    x = _r;
+}
+
+inline void Vector3::setG(float _g) {
+
+    y = _g;
+}
+
+inline void Vector3::setB(float _b) {
+
+    z = _b;
 }
 
 inline std::string Vector3::toString() const {
