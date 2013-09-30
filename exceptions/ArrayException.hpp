@@ -7,9 +7,6 @@
 #ifndef UTILITIES_EXCEPTIONS_ARRAYEXCEPTION_H_
 #   define UTILITIES_EXCEPTIONS_ARRAYEXCEPTION_H_
 
-#include <iostream>
-#include <sstream>
-
 #include "Exception.hpp"
 
 namespace util { namespace ex {

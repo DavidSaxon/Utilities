@@ -3,6 +3,7 @@
 |                                                       |
 | @author David Saxon                                   |
 \*******************************************************/
+
 #ifndef UTILITIES_EXCEPTIONS_EXCEPTION_H_
 #   define UTILITIES_EXCEPTIONS_EXCEPTION_H_
 
@@ -16,20 +17,25 @@ class Exception : public std::exception {
 public:
 
     //DESTRUCTOR
-    virtual ~Exception() throw() {}
+    /*!Destroys the exception*/
+    virtual ~Exception() throw() {
+    }
 
     //PUBLIC MEMBER FUNCTIONS
-    /*Return the error message of the exception and the exception type*/
+    /*!@return th error message of the exception*/
     const char* what() const throw() {
 
         std::string message = info();
 
-        char* rMessage = new char[message.length()+1];
+        //create a char array for the message
+        char* rMessage = new char[message.length() + 1];
+
         //copy over the message
         for (unsigned i = 0; i < message.length(); ++i) {
 
             rMessage[i] = message[i];
         }
+
         //put the terminating character on the end
         rMessage[message.length()] = '\0';
 
@@ -45,16 +51,17 @@ public:
 protected:
 
     //VARIABLES
+    //the error message
     std::string errMsg;
 
     //PROTECTED MEMBER FUNCTIONS
-    /*Give the exception name i.e. EXCEPTION*/
+    /*!@return the exception name*/
     virtual std::string name() const = 0;
 
 private:
 
     //PRIVATE MEMBER FUNCTIONS
-    /*Returns the exception name joint with the error message*/
+    /*!@return the exception name joint with the error message*/
     std::string info() const {
 
         std::stringstream ss;
@@ -63,6 +70,7 @@ private:
         return ss.str();
     }
 };
+
 }} //util //ex
 
 #endif
