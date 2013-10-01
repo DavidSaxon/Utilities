@@ -113,6 +113,11 @@ public:
     @_scalar the scalar to multiply the matrix by*/
     void operator *=(float _scalar);
 
+    /*!Multiplies a 4x4 matrix by a 3d vector
+    @_vec the vector to multiply by
+    @return the result of the multiplication*/
+    util::vec::Vector4 operator *(const util::vec::Vector3& _vec) const;
+
     /*!Multiplies a 4x4 matrix by a 4d vector
     @_vec the vector to multiply by
     @return the result of the multiplication*/
@@ -413,6 +418,20 @@ inline Matrix4 Matrix4::operator *(float _scalar) const {
 inline void Matrix4::operator *=(float _scalar) {
 
     *this = *this * _scalar;
+}
+
+inline util::vec::Vector4 Matrix4::operator *(
+    const util::vec::Vector3& _vec) const {
+
+    return util::vec::Vector4(
+        (((col0.getX() * _vec.getX()) + (col1.getX() * _vec.getY())) +
+            (col2.getX() * _vec.getZ())),
+        (((col0.getY() * _vec.getX()) + (col1.getY() * _vec.getY())) +
+            (col2.getY() * _vec.getZ())),
+        (((col0.getZ() * _vec.getX()) + (col1.getZ() * _vec.getY())) +
+            (col2.getZ() * _vec.getZ())),
+        (((col0.getW() * _vec.getX()) + (col1.getW() * _vec.getY())) +
+            (col2.getW() * _vec.getZ())));    
 }
 
 inline util::vec::Vector4 Matrix4::operator *(
