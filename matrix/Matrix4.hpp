@@ -584,7 +584,17 @@ inline Matrix4 Matrix4::lookAt(const util::vec::Vector3& _eyePos,
 inline Matrix4 Matrix4::perspective(float _fov, float _aspectRatio,
     float _zNear, float _zFar) {
 
-    //TODO:
+    float f = tanf((util::val::PI / 2.0f) -
+        (0.5f * (_fov * util::val::DEGREES_TO_RADIANS)));
+
+    float rangeInv = (1.0f / (_zNear - _zFar));
+
+    return Matrix4(
+        util::vec::Vector4((f / _aspectRatio), 0.0f, 0.0f, 0.0f),
+        util::vec::Vector4(0.0f, f, 0.0f, 0.0f ),
+        util::vec::Vector4(0.0f, 0.0f, ((_zNear + _zFar) * rangeInv), -1.0f),
+        util::vec::Vector4(0.0f, 0.0f,
+            (((_zNear * _zFar) * rangeInv) * 2.0f), 0.0f));
 }
 
 inline Matrix4 Matrix4::frustum(float _left, float _right, float _bottom,
