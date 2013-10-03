@@ -45,6 +45,32 @@ private:
     }
 };
 
+/*************************************\
+| Exception that warns of a bad file. |
+|                                     |
+| @author David Saxon                 |
+\*************************************/
+class BadFileException : public FileException {
+public:
+
+    //CONSTRUCTOR
+    /*!Creates a bad file exception
+    @message the message of the exception*/
+    BadFileException(const std::string& message) {
+
+        errMsg = message;
+    }
+
+private:
+
+    //PRIVATE MEMBER FUNCTIONS
+    /*!@return the name of the exception*/
+    std::string name() const {
+
+        return "BAD FILE EXCEPTION";
+    }
+};
+
 /**************************************************\
 | Exception that warns a directory does not exist. |
 |                                                  |
