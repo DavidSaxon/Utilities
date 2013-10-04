@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
+#include <vector>
 
 #include "DataStructuresUtil.hpp"
 
