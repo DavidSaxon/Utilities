@@ -32,6 +32,13 @@ enum {
     G
 };
 
+//!Access enumerators for the measurement values
+enum {
+
+    WIDTH = 0,
+    HEIGHT
+};
+
 } //v2
 
 class Vector2 {
@@ -232,6 +239,12 @@ public:
     /*!@return the y value*/
     float getG() const;
 
+    /*!@return the x value*/
+    float getWidth() const;
+
+    /*!@return the y value*/
+    float getHeight() const;
+
     /*!Sets the new values
     @_x the new x value
     @_y the new y value*/
@@ -248,6 +261,12 @@ public:
 
     /*!@_g the new y value*/
     void setG(float _g);
+
+    /*!@_width the new x value*/
+    void setWidth(float _width);
+
+    /*!@_height the new y value*/
+    void setHeight(float _height);
 
     /*!Outputs the vector in string format
     @return the string of the vector*/
@@ -517,6 +536,16 @@ inline float Vector2::getG() const {
     return y;
 }
 
+inline float Vector2::getWidth() const {
+
+    return x;
+}
+
+inline float Vector2::getHeight() const {
+
+    return y;
+}
+
 inline void Vector2::set(float _x, float _y) {
 
     x = _x;
@@ -541,6 +570,16 @@ inline void Vector2::setR(float _r) {
 inline void Vector2::setG(float _g) {
 
     y = _g;
+}
+
+inline void Vector2::setWidth(float _width) {
+
+    x = _width;
+}
+
+inline void Vector2::setHeight(float _height) {
+
+    y = _height;
 }
 
 inline std::string Vector2::toString() const {

@@ -34,6 +34,14 @@ enum {
     B
 };
 
+//!Access enumerators for the measurement values
+enum {
+
+    WIDTH = 0,
+    HEIGHT,
+    DEPTH
+};
+
 } //v3
 
 class Vector3 {
@@ -289,6 +297,15 @@ public:
     /*!@return the z value*/
     float getB() const;
 
+    /*!@return the x value*/
+    float getWidth() const;
+
+    /*!@return the y value*/
+    float getHeight() const;
+
+    /*!@return the z value*/
+    float getDepth() const;
+
     /*!Sets the new values
     @_x the new x value
     @_y the new y value
@@ -312,6 +329,15 @@ public:
 
     /*!@_b the new z value*/
     void setB(float _b);
+
+    /*!@_width the new x value*/
+    void setWidth(float _width);
+
+    /*!@_height the new y value*/
+    void setHeight(float _height);
+
+    /*!@_depth the new z value*/
+    void setDepth(float _depth);
 
     /*!Outputs the vector in string format
     @return the string of the vector*/
@@ -693,6 +719,21 @@ inline float Vector3::getB() const {
     return z;
 }
 
+inline float Vector3::getWidth() const {
+
+    return x;
+}
+
+inline float Vector3::getHeight() const {
+
+    return y;
+}
+
+inline float Vector3::getDepth() const {
+
+    return z;
+}
+
 inline void Vector3::set(float _x, float _y, float _z) {
 
     x = _x;
@@ -728,6 +769,21 @@ inline void Vector3::setG(float _g) {
 inline void Vector3::setB(float _b) {
 
     z = _b;
+}
+
+inline void Vector3::setWidth(float _width) {
+
+    x = _width;
+}
+
+inline void Vector3::setHeight(float _height) {
+
+    y = _height;
+}
+
+inline void Vector3::setDepth(float _depth) {
+
+    z = _depth;
 }
 
 inline std::string Vector3::toString() const {
