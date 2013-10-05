@@ -258,6 +258,25 @@ inline std::string extractPathToFromPath(const std::string& path) {
     return path.substr(0, splitIndex+2);
 }
 
+/*!Reads a file into a string
+@filename the path of the file to read
+@return the string containing the file contents*/
+inline std::string fileToString(const std::string& filename) {
+
+    std::ifstream in(filename.c_str(), std::ios::in | std::ios::binary);
+
+    if (in) {
+
+        std::string contents;
+        in.seekg(0, std::ios::end);
+        contents.resize(in.tellg());
+        in.seekg(0, std::ios::beg);
+        in.read(&contents[0], contents.size());
+        in.close();
+        return(contents);
+    }
+}
+
 }} //util //file
 
 #endif
